@@ -30,4 +30,3 @@ hardware-platform-simulator/
   .gitignore
   .README.md
 ```
-
