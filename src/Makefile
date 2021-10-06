@@ -20,4 +20,4 @@ $(SUBDIRS):
 	$(MAKE) -C $@
 
 clean:
-	rm $(OBJDIR)/*.o
+	rm $(OBJDIR)/*.o $(EXEC)
