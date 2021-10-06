@@ -30,3 +30,5 @@ hardware-platform-simulator/
   .gitignore
   .README.md
 ```
+
+The namespace organization follows the convetion described in: https://iamsorush.com/posts/namespace-cpp/
