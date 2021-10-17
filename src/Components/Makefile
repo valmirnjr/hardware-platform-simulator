@@ -1,6 +1,6 @@
 CC = g++
 TARGET = component
-SUBDIRS = Platform Bus #$(wildcard */.)
+SUBDIRS = Platform Bus CPU #$(wildcard */.)
 export OBJDIR
 
 all: $(SUBDIRS) $(OBJDIR)/$(TARGET).o

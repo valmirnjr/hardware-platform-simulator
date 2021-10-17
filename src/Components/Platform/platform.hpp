@@ -6,7 +6,6 @@
 #include <string>
 #include <memory>
 #include "../component.hpp"
-#include "../Bus/bus.hpp"
 #include "../../FileImporter/fileimporter.hpp"
 #include "../../Common/common.hpp"
 
