@@ -6,8 +6,7 @@ EXEC = hps.exe
 SRCDIR != pwd
 PROJDIR = $(SRCDIR)/..
 export OBJDIR = $(PROJDIR)/obj
-SUBDIRS = FileImporter #$(wildcard */.)
-
+SUBDIRS = FileImporter Components Common #$(wildcard */.)
 
 all: $(SUBDIRS) $(OBJDIR)/$(TARGET).o
 
@@ -20,4 +19,4 @@ $(SUBDIRS):
 	$(MAKE) -C $@
 
 clean:
-	rm $(OBJDIR)/*.o $(EXEC)
+	rm -f $(OBJDIR)/*.o $(EXEC)

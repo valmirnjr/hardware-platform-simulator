@@ -1,5 +1,5 @@
 CC = g++
-TARGET = fileimporter
+TARGET = bus
 
 all: $(OBJDIR)/$(TARGET).o
 

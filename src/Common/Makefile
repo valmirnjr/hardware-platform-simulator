@@ -1,5 +1,5 @@
 CC = g++
-TARGET = fileimporter
+TARGET = common
 
 all: $(OBJDIR)/$(TARGET).o
 

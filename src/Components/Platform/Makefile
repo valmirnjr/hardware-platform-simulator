@@ -1,5 +1,5 @@
 CC = g++
-TARGET = fileimporter
+TARGET = platform
 
 all: $(OBJDIR)/$(TARGET).o
 
