@@ -1,13 +1,18 @@
 #include <iostream>
 #include <map>
 #include <string>
-#include "FileImporter/fileimporter.hpp"
+#include "Components/Platform/platform.hpp"
 
-using HPS::FileImporter;
+using HPS::Platform;
 
 int main() {
-  FileImporter fi;
-  std::map<std::string, std::string> props = fi.import("/home/valmir/Documentos/Phelma/S9/OOP/Project/hardware-platform-simulator/test/data/testdata_1/program.txt");
+  Platform mainPlatform(
+    "/home/valmir/Documentos/Phelma/S9/OOP/Project/hardware-platform-simulator/test/data/",
+    "testdata/platform.txt"
+  );
+  mainPlatform.load();
+  mainPlatform.bindComponents();
+  mainPlatform.simulate();
 
   return 0;
 }
