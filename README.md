@@ -6,9 +6,8 @@ A simplified simulator of hardware components. The simulator loads textual defin
 
 - [x] Class diagram
 - [x] Project folder structure
-- [ ] Implement Factory Pattern
-  - [ ] Read text file
-  - [ ] Create component according to the text file
+- [x] Read file
+  - [x] Separate properties from values
   
 ### **Class diagram**
 The class diagram designed is presented below:
@@ -30,3 +29,24 @@ hardware-platform-simulator/
   .gitignore
   .README.md
 ```
+
+The namespace organization follows the convetion described in: https://iamsorush.com/posts/namespace-cpp/
+
+## Week 2
+### 11/09/2021 - 18/09/2021
+
+- [x] Implement Factory Pattern
+  - [x] Call constructor according to component type
+- [x] Create recursive Makefile
+- [ ] Update Class diagram
+
+### Factory method pattern  
+A factory pattern is implemented as a platform method through the use of a map object that takes a type and outputs a Component pointer. This stategy allows the creation of components always with the same line of code:
+
+```cpp
+  factoryMap[compType]->makeFromFileContent(content)
+```
+
+Where *compType* is a string and content is a map<string, string> with the properties read from the file.
+  
+
