@@ -1,6 +1,7 @@
 #include "platform.hpp"
 #include "../Bus/bus.hpp"
 #include "../CPU/cpu.hpp"
+#include "../Memory/memory.hpp"
 
 using std::map;
 using std::string;
@@ -8,7 +9,6 @@ using std::unique_ptr;
 using HPS::Component;
 using HPS::Platform;
 using HPS::dict;
-using HPS::constants::TYPE;
 
 const string Platform::type = HPS::constants::PLATFORM;
 
@@ -67,6 +67,7 @@ map<string, unique_ptr<Component>> Platform::initMap() {
   m.emplace(constants::PLATFORM, unique_ptr<Component>(new Platform()));
   m.emplace(constants::BUS, unique_ptr<Component>(new Bus()));
   m.emplace(constants::CPU, unique_ptr<Component>(new CPU()));
+  m.emplace(constants::MEMORY, unique_ptr<Component>(new Memory()));
 
   return m;
 }

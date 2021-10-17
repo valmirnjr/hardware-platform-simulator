@@ -17,6 +17,7 @@ namespace HPS {
     // Component types
     constexpr char BUS[] = "BUS";
     constexpr char CPU[] = "CPU";
+    constexpr char MEMORY[] = "MEMORY";
     constexpr char PLATFORM[] = "PLATFORM";
     constexpr char PROGRAM[] = "PROGRAM";
 
