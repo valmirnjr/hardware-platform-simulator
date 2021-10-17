@@ -7,25 +7,26 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include "../Common/common.hpp"
 
 namespace HPS {
   class FileImporter {
   private:
     std::string filename;
-    std::map<std::string, std::string> props;
+    dict content;
   
   public:
     FileImporter();
     FileImporter(std::string);
-    std::map<std::string, std::string> getProps();
     void loadProps();
     void loadPropsByLine();
-    std::map<std::string, std::string> import(std::string);
+    dict import(std::string);
   };
+
+  void ltrim(std::string&);
+  void rtrim(std::string&);
+  void trim(std::string&);
 }
 
-void ltrim(std::string&);
-void rtrim(std::string&);
-void trim(std::string&);
 
 #endif
