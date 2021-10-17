@@ -1,6 +1,7 @@
 #include "platform.hpp"
 #include "../Bus/bus.hpp"
 #include "../CPU/cpu.hpp"
+#include "../Display/display.hpp"
 #include "../Memory/memory.hpp"
 
 using std::map;
@@ -67,6 +68,7 @@ map<string, unique_ptr<Component>> Platform::initMap() {
   m.emplace(constants::PLATFORM, unique_ptr<Component>(new Platform()));
   m.emplace(constants::BUS, unique_ptr<Component>(new Bus()));
   m.emplace(constants::CPU, unique_ptr<Component>(new CPU()));
+  m.emplace(constants::DISPLAY, unique_ptr<Component>(new Display()));
   m.emplace(constants::MEMORY, unique_ptr<Component>(new Memory()));
 
   return m;
