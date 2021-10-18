@@ -36,8 +36,8 @@ void FileImporter::loadProps() {
         trim(key);
         trim(val);
 
-        std::cout << key << ": ";
-        std::cout << val << std::endl;
+        // std::cout << key << ": ";
+        // std::cout << val << std::endl;
 
         // Save property
         content[key] = val;

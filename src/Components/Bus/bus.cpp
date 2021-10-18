@@ -15,10 +15,10 @@ Bus::Bus(dict &d) : readCount(0) {
     label = d[constants::LABEL];
   }
   if (d.count(constants::SOURCE) > 0) {
-    label = d[constants::SOURCE];
+    sourceName = d[constants::SOURCE];
   }
   if (d.count(constants::WIDTH) > 0) {
-    label = d[constants::WIDTH];
+    width = atoi(d[constants::WIDTH].c_str());
   }
 
   std::cout << *this;

@@ -41,7 +41,7 @@ void Platform::simulate() {
 void Platform::load() {
   for (auto const &filename : compFilenames) {
     dict content = importer.import(dir + filename);
-    print(content);
+    // print(content);
     string compType = getContentType(content, dir);
 
     if (factoryMap.count(compType) > 0) {
