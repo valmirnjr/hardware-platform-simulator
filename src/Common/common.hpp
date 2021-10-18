@@ -12,6 +12,8 @@ namespace HPS {
     // File property keys
     constexpr char TYPE[] = "TYPE";
     constexpr char LABEL[] = "LABEL";
+    constexpr char SOURCE[] = "SOURCE";
+    constexpr char WIDTH[] = "WIDTH";
     constexpr char COMPONENTS[] = "COMPONENTS";
 
     // Component types
@@ -41,6 +43,11 @@ namespace HPS {
   }
 
   typedef std::map<std::string, std::string> dict;
+
+  typedef struct DataValue {
+    bool valid;
+    double value;
+  } DataValue;
 
   void print(const std::vector<std::string>&);
   void print(const dict&);

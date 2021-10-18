@@ -12,7 +12,7 @@ void HPS::print(const std::vector<std::string> &v) {
 }
 
 void HPS::print(const dict &d) {
-  std::cout << "{ ";
+  std::cout << "{ " << std::endl;
   int i = 0;
   for (auto const &p : d) {
     std::cout << "\t" << p.first << ": " << p.second;

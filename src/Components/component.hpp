@@ -13,6 +13,7 @@ namespace HPS {
 
   public:
     std::string getType();
+    std::string getLabel();
     void virtual simulate() = 0;
     virtual std::unique_ptr<Component> makeFromFileContent(HPS::dict) = 0;
   };
