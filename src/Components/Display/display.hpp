@@ -10,7 +10,7 @@ namespace HPS {
     Display();
     Display(dict&);
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict);
+    std::unique_ptr<Component> makeFromFileContent(dict&);
   };
 }
 

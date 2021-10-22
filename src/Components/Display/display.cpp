@@ -13,7 +13,7 @@ Display::Display(dict &d) {
 
 void Display::simulate() {}
 
-unique_ptr<Component> Display::makeFromFileContent(dict d) {
+unique_ptr<Component> Display::makeFromFileContent(dict &d) {
   return unique_ptr<Component>(new Display(d));
 }
 
