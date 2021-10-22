@@ -13,7 +13,7 @@ Memory::Memory(dict &d) {
 
 void Memory::simulate() {}
 
-unique_ptr<Component> Memory::makeFromFileContent(dict d) {
+unique_ptr<Component> Memory::makeFromFileContent(dict &d) {
   return unique_ptr<Component>(new Memory(d));
 }
 
