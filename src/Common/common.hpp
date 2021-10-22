@@ -15,6 +15,7 @@ namespace HPS {
     constexpr char SOURCE[] = "SOURCE";
     constexpr char WIDTH[] = "WIDTH";
     constexpr char COMPONENTS[] = "COMPONENTS";
+    constexpr char CORES[] = "CORES";
 
     // Component types
     constexpr char BUS[] = "BUS";
@@ -43,6 +44,8 @@ namespace HPS {
   }
 
   typedef std::map<std::string, std::string> dict;
+  template <typename T>
+  using vec2d = std::vector<std::vector<T>>;
 
   typedef struct DataValue {
     bool valid;
