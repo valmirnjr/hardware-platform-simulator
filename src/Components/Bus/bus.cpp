@@ -26,7 +26,7 @@ Bus::Bus(dict &d) : readCount(0) {
 
 void Bus::simulate() {}
 
-unique_ptr<Component> Bus::makeFromFileContent(dict d) {
+unique_ptr<Component> Bus::makeFromFileContent(dict &d) {
   return unique_ptr<Component>(new Bus(d));
 }
 
