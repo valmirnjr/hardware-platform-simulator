@@ -6,7 +6,6 @@
 #include <string>
 #include <memory>
 #include "../component.hpp"
-#include "../Bus/bus.hpp"
 #include "../../FileImporter/fileimporter.hpp"
 #include "../../Common/common.hpp"
 
@@ -28,7 +27,8 @@ namespace HPS {
     Platform(dict&);
     static std::map<std::string, std::unique_ptr<Component>> initMap();
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict);
+    std::unique_ptr<Component> makeFromFileContent(dict&);
+    void addDependencies(std::unique_ptr<Component>&, dict&);
     void load();
     void bindComponents();
     std::vector<std::string> getFilenamesFromContent(dict);

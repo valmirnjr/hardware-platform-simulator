@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include <exception>
 
 void HPS::print(const std::vector<std::string> &v) {
   std::cout << "{ ";
@@ -12,7 +13,7 @@ void HPS::print(const std::vector<std::string> &v) {
 }
 
 void HPS::print(const dict &d) {
-  std::cout << "{ ";
+  std::cout << "{ " << std::endl;
   int i = 0;
   for (auto const &p : d) {
     std::cout << "\t" << p.first << ": " << p.second;
@@ -23,4 +24,13 @@ void HPS::print(const dict &d) {
     i++;
   }
   std::cout << "}" << std::endl;
+}
+
+int HPS::cstrToInt(const char *s) {
+  char *p;
+  int i = strtol(s, &p, 10);
+  if (*p) {
+    throw std::bad_cast();
+  }
+  return i;
 }

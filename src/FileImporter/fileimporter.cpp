@@ -1,7 +1,6 @@
 #include "fileimporter.hpp"
 
 using HPS::FileImporter;
-using HPS::constants::FileStyle;
 using std::string;
 using std::map;
 
@@ -10,7 +9,42 @@ FileImporter::FileImporter() {}
 FileImporter::FileImporter(string fn) : filename(fn) {
 }
 
-void FileImporter::loadProps() {
+HPS::vec2d<string> FileImporter::importAsVector(string fn="") {
+  if (!fn.empty()) {
+    filename = fn;
+  }
+
+  vec2d<string> content;
+  string line;
+  string buffer;
+  std::ifstream file(filename);
+
+  if (file.is_open()) {
+    while (std::getline(file, line)) {
+      content.push_back(std::vector<string>());
+      std::stringstream ss(line);
+
+      while (ss >> buffer) {
+        content.back().push_back(buffer);
+      }
+    }
+  }
+
+  // TODO add verbose flag
+  /* std::cout << "Printing importAsVector content: " << std::endl;
+  for (auto &p : content) {
+    print(p);
+  } */
+
+  return content;
+}
+
+HPS::dict FileImporter::importAsDict(string fn="") {
+  if (!fn.empty()) {
+    filename = fn;
+  }
+  dict content;
+  
   string line;
   string key;
   string val;
@@ -36,8 +70,8 @@ void FileImporter::loadProps() {
         trim(key);
         trim(val);
 
-        std::cout << key << ": ";
-        std::cout << val << std::endl;
+        // std::cout << key << ": ";
+        // std::cout << val << std::endl;
 
         // Save property
         content[key] = val;
@@ -46,19 +80,10 @@ void FileImporter::loadProps() {
         val.clear();
       }
     }
+  } else {
+    std::cout << "File could not be opened.";
   }
-}
 
-void FileImporter::loadPropsByLine() {
-  std::ifstream file(filename);
-}
-
-HPS::dict FileImporter::import(string fn="") {
-  content = dict();
-  if (!fn.empty()) {
-    filename = fn;
-  }
-  loadProps();
   return content;
 }
 
