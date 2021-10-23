@@ -48,5 +48,21 @@ A factory pattern is implemented as a platform method through the use of a map o
 ```
 
 Where *compType* is a string and content is a map<string, string> with the properties read from the file.
-  
 
+## Week 3
+### 18/09/2021 - 25/09/2021
+
+- [x] Create Register
+- [x] Create Program class
+- [x] Import program file
+- [x] Initialize CPU parameters
+- [x] Load program to the CPU
+- [x] Create Instruction
+- [x] Execute instructions from CPU
+- [ ] Test file importation
+- [ ] Test instructions execution
+- [ ] Document functions
+
+### Instruction execute method
+
+### Import methods (importAsDict x importAsVec)
