@@ -12,6 +12,7 @@ CPU::CPU() {}
 CPU::CPU(const string &label, const int &numCores, const double &frequency)
   : activeCore(0), numCores(numCores), frequency(frequency) {
   this->label = label;
+  this->type = constants::CPU;
   std::cout << *this;
 }
 
@@ -42,8 +43,9 @@ unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
   return unique_ptr<Component>(new CPU(label, numCores, frequency));
 }
 
-void CPU::setProgram(Program p) {
+void CPU::setProgram(const Program &p) {
   prog = p;
+  std::cout << "Setting program: " << prog;
 }
 
 std::ostream& CPU::outstream(std::ostream &out) {
@@ -51,7 +53,6 @@ std::ostream& CPU::outstream(std::ostream &out) {
   out << "\t" << constants::LABEL << ": " << label << std::endl;
   out << "\t" << constants::CORES << ": " << numCores << std::endl;
   out << "\t" << constants::FREQUENCY << ": " << frequency << std::endl;
-  // out << "\t" << constants::PROGRAM << ": " <<  << std::endl;
   out << "}" << std::endl;
   return out;
 }

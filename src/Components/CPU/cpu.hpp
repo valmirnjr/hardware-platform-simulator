@@ -13,13 +13,13 @@ namespace HPS {
     double frequency;
     int numCores;
     int activeCore;
-  
+   
   public:
     CPU();
     CPU(const std::string&, const int&, const double&);
     void simulate();
     std::unique_ptr<Component> makeFromFileContent(dict&);
-    void setProgram(Program);
+    void setProgram(const Program&);
     std::ostream& outstream(std::ostream &out);
   };
 
