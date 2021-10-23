@@ -13,14 +13,13 @@ namespace HPS {
   class FileImporter {
   private:
     std::string filename;
-    dict content;
   
   public:
     FileImporter();
     FileImporter(std::string);
     void loadProps();
-    void loadPropsByLine();
-    dict import(std::string);
+    vec2d<std::string> importAsVector(std::string);
+    dict importAsDict(std::string);
   };
 
   void ltrim(std::string&);
