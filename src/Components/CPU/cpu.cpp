@@ -16,7 +16,16 @@ CPU::CPU(const string &label, const int &numCores, const double &frequency)
   std::cout << *this;
 }
 
-void CPU::simulate() {}
+void CPU::simulate() {
+  for (int i = 0; i < frequency; i++) {
+    Instruction inst = prog.compute();
+    reg.write(inst.execute());
+
+    // TODO use verbose mode to print current instruction
+    // std::cout << "Executing " << inst;
+    // std::cout << "Result: " << reg.read() << std::endl;
+  }
+}
 
 unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
   string label;

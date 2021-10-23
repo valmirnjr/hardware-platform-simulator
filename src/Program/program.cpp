@@ -8,9 +8,8 @@ using std::string;
 
 Program::Program() {}
 
-Program::Program(vec2d<string> &content) {
+Program::Program(vec2d<string> &content) : nextInstruction(0) {
   for (auto &params : content) {
-    print(params);
     Instruction inst(params);
     if (inst.isValid()) {
       instructions.push_back(inst);
