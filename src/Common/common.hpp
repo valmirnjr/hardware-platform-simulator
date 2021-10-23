@@ -16,6 +16,7 @@ namespace HPS {
     constexpr char WIDTH[] = "WIDTH";
     constexpr char COMPONENTS[] = "COMPONENTS";
     constexpr char CORES[] = "CORES";
+    constexpr char FREQUENCY[] = "FREQUENCY";
 
     // Component types
     constexpr char BUS[] = "BUS";
@@ -23,7 +24,10 @@ namespace HPS {
     constexpr char DISPLAY[] = "DISPLAY";
     constexpr char MEMORY[] = "MEMORY";
     constexpr char PLATFORM[] = "PLATFORM";
+
+    // Other entities names
     constexpr char PROGRAM[] = "PROGRAM";
+    constexpr char INSTRUCTION[] = "INSTRUCTION";
 
     const std::unordered_set<std::string> DEFAULT_KEYS = {
       TYPE, LABEL, BUS, PLATFORM, COMPONENTS
@@ -54,6 +58,8 @@ namespace HPS {
 
   void print(const std::vector<std::string>&);
   void print(const dict&);
+
+  int cstrToInt(const char*);
 }
 
 
