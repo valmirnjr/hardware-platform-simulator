@@ -16,7 +16,7 @@ const string Platform::type = HPS::constants::PLATFORM;
 Platform::Platform() {}
 
 Platform::Platform(std::string dir, std::string filename) : dir(dir), filename(filename) {
-  dict content = importer.import(dir + filename);
+  dict content = importer.importAsDict(dir + filename);
   string compType = getContentType(content, dir);
 
   if (compType != constants::PLATFORM) {
@@ -40,8 +40,8 @@ void Platform::simulate() {
 
 void Platform::load() {
   for (auto const &filename : compFilenames) {
-    dict content = importer.import(dir + filename);
-    // print(content);
+    dict content = importer.importAsDict(dir + filename);
+    
     string compType = getContentType(content, dir);
 
     if (factoryMap.count(compType) > 0) {
@@ -49,15 +49,26 @@ void Platform::load() {
       components.push_back(
         factoryMap[compType]->makeFromFileContent(content)
       );
+      addDependencies(components.back(), content);
     } else {
       std::cout << "Error: unknown compType: " << compType << std::endl;
     }
   }
 }
 
-unique_ptr<Component> Platform::makeFromFileContent(HPS::dict fc) {
+unique_ptr<Component> Platform::makeFromFileContent(HPS::dict &fc) {
   unique_ptr<Component> comp(new Platform(fc));
   return comp;
+}
+
+void Platform::addDependencies(unique_ptr<Component> &comp, dict &content) {
+  if (comp->getType() == constants::CPU) {
+    vec2d<string> programContent = importer.importAsVector(dir + content[constants::PROGRAM]); // TODO try catch this
+
+    // Downcasting to be able to set the CPU program
+    dynamic_cast<CPU&>(*comp).setProgram(Program(programContent));
+    // std::cout << dynamic_cast<CPU&>(*comp);
+  }
 }
 
 void Platform::bindComponents() {
