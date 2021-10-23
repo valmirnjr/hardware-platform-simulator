@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace HPS {
   class Instruction {
@@ -18,9 +19,17 @@ namespace HPS {
     bool isCodeValid();
     bool areOpsValid();
     std::ostream& outstream(std::ostream &out);
+
+    // Instructions
+    double NOP();
+    double ADD();
+    double SUB();
+    double MUL();
+    double DIV();
   };
 
   std::ostream & operator<<(std::ostream&, Instruction&);
+  typedef double (Instruction::*inst_method_t)();
 }
 
 #endif
