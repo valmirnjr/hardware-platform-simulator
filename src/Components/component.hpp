@@ -1,5 +1,5 @@
-#ifndef COMPONENT_FACTORY_HPP
-#define COMPONENT_FACTORY_HPP
+#ifndef COMPONENT_HPP
+#define COMPONENT_HPP
 
 #include <string>
 #include <memory>
@@ -9,11 +9,9 @@ namespace HPS {
   class Component {
   protected:
     std::string type;
-    std::string label;
 
   public:
     std::string getType();
-    std::string getLabel();
     virtual void simulate() = 0;
     virtual std::shared_ptr<Component> makeFromFileContent(dict&) = 0;
   };
