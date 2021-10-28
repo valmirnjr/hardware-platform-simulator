@@ -5,6 +5,7 @@ using std::string;
 using std::shared_ptr;
 using HPS::Bus;
 using HPS::Component;
+using HPS::DataValue;
 
 const string Bus::type = constants::BUS;
 
@@ -26,8 +27,27 @@ Bus::Bus(dict &d) : readCount(0) {
 
 void Bus::simulate() {}
 
+DataValue Bus::read() {
+  readCount++;
+  DataValue oldest = {
+    false, // validity
+    0      // value
+  };
+
+  if (ready.size() > 0) {
+    oldest = ready.front();
+    ready.pop();
+  }
+
+  return oldest;
+}
+
 shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
   return shared_ptr<Component>(new Bus(d));
+}
+
+std::string Bus::getLabel() {
+  return label;
 }
 
 std::ostream& Bus::outstream(std::ostream &out) {

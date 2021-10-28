@@ -3,18 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 #include <memory>
 #include <fstream>
-#include "../component.hpp"
 #include "../../Common/common.hpp"
+#include "../Readable/readable.hpp"
 
 namespace HPS {
-  class Bus : public Component {
+  class Bus : public ReadableComponent {
+    std::string label;
     static const std::string type;
     int width;
     std::string sourceName;
     std::vector<DataValue> pending;
-    std::vector<DataValue> ready;
+    std::queue<DataValue> ready;
     int readCount;
     
   public:
@@ -22,6 +24,7 @@ namespace HPS {
     Bus(dict&);
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
+    std::string getLabel();
     bool bind(std::shared_ptr<Component>);
     DataValue read();
     int getReadCount();
