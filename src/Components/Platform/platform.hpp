@@ -20,6 +20,7 @@ namespace HPS {
     std::vector<std::string> compFilenames;
     std::string dir;
     std::string filename;
+    std::string label;
 
   public:
     Platform();
@@ -31,6 +32,7 @@ namespace HPS {
     void addDependencies(std::shared_ptr<Component>&, dict&);
     void load();
     void bindComponents();
+    std::string getLabel();
     std::vector<std::string> getFilenamesFromContent(dict);
   };
 

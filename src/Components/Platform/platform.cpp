@@ -86,6 +86,10 @@ map<string, shared_ptr<Component>> Platform::initMap() {
   return m;
 }
 
+std::string Platform::getLabel() {
+  return label;
+}
+
 std::vector<std::string> Platform::getFilenamesFromContent(dict content) {
   std::vector<string> filenames;
   for (auto const &key : content) {
