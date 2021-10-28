@@ -1,20 +1,58 @@
 #include "memory.hpp"
-#include <iostream>
 
+using std::unique_ptr;
 using std::shared_ptr;
+using std::string;
+using std::vector;
 using HPS::Memory;
+using HPS::ReadableComponent;
 using HPS::Component;
+using HPS::DataValue;
+using HPS::CircularBuffer;
 
 Memory::Memory() {}
 
-Memory::Memory(dict &d) {
-  std::cout << "Creating Memory: " << d[constants::LABEL] << std::endl;
+Memory::Memory(const string label, const double accessTime, const int size)
+  : accessTime(accessTime), size(size) {
+  this->label = label;
+  content = unique_ptr<MemContent>(new MemContent(size));
 }
 
 void Memory::simulate() {}
 
-shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
-  return shared_ptr<Component>(new Memory(d));
+DataValue Memory::read() {
+  DataValue data = {
+    false, // validity
+    0      // value
+  };
+  if (content->getCurrentSize() > 0) {
+    data.valid = true;
+    data.value = content->read();
+  }
+  return data;
 }
 
+shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
+  // Check if all necessary keys are present in the dictionary
+  vector<string> mandatoryKeys({ constants::LABEL, constants::ACCESS, constants::SIZE });
+  vector<string> missingKeys = getDictMissingKeys(d, mandatoryKeys);
+  if (missingKeys.size() > 0) {
+    string errorMsg = "Memory dictionary is missing the following key(s): ";
+    for (auto const &k : missingKeys) {
+      errorMsg += k + " ";
+    }
+    throw std::invalid_argument(errorMsg);
+  }
 
+  std::cout << "Creating Memory: " << d[constants::LABEL] << std::endl;
+
+  string label = d[constants::LABEL];
+  double accessTime = std::stod(d[constants::ACCESS]);
+  int size = cstrToInt(d[constants::SIZE].c_str());
+
+  return shared_ptr<Component>(new Memory(label, accessTime, size));
+}
+
+std::string Memory::getLabel() {
+  return label;
+}
