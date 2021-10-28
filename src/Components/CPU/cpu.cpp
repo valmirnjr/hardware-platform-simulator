@@ -6,6 +6,7 @@ using std::shared_ptr;
 using std::string;
 using HPS::CPU;
 using HPS::Component;
+using HPS::DataValue;
 
 CPU::CPU() {}
 
@@ -27,6 +28,20 @@ void CPU::simulate() {
     // std::cout << "Executing " << inst;
     // std::cout << "Result: " << reg.read() << std::endl;
   }
+}
+
+DataValue CPU::read() {
+  DataValue oldest = {
+    false, // valid
+    0      // value
+  };
+
+  if (!reg.isEmpty()) {
+    oldest.value = reg.read();
+    oldest.valid = true;
+  }
+
+  return oldest;
 }
 
 /**
@@ -61,6 +76,10 @@ shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
 void CPU::setProgram(const Program &p) {
   prog = p;
   std::cout << "Setting program: " << prog;
+}
+
+std::string CPU::getLabel() {
+  return label;
 }
 
 std::ostream& CPU::outstream(std::ostream &out) {
