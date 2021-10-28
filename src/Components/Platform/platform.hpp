@@ -14,9 +14,9 @@ namespace HPS {
   class Platform : public Component {
   private:
     static const std::string type;
-    static std::map<std::string, std::unique_ptr<Component>> factoryMap;
+    static std::map<std::string, std::shared_ptr<Component>> factoryMap;
     FileImporter importer;
-    std::vector<std::unique_ptr<Component>> components;
+    std::vector<std::shared_ptr<Component>> components;
     std::vector<std::string> compFilenames;
     std::string dir;
     std::string filename;
@@ -25,10 +25,10 @@ namespace HPS {
     Platform();
     Platform(std::string, std::string);
     Platform(dict&);
-    static std::map<std::string, std::unique_ptr<Component>> initMap();
+    static std::map<std::string, std::shared_ptr<Component>> initMap();
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
-    void addDependencies(std::unique_ptr<Component>&, dict&);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
+    void addDependencies(std::shared_ptr<Component>&, dict&);
     void load();
     void bindComponents();
     std::vector<std::string> getFilenamesFromContent(dict);

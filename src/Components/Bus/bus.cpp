@@ -2,7 +2,7 @@
 #include <iostream>
 
 using std::string;
-using std::unique_ptr;
+using std::shared_ptr;
 using HPS::Bus;
 using HPS::Component;
 
@@ -26,8 +26,8 @@ Bus::Bus(dict &d) : readCount(0) {
 
 void Bus::simulate() {}
 
-unique_ptr<Component> Bus::makeFromFileContent(dict &d) {
-  return unique_ptr<Component>(new Bus(d));
+shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
+  return shared_ptr<Component>(new Bus(d));
 }
 
 std::ostream& Bus::outstream(std::ostream &out) {

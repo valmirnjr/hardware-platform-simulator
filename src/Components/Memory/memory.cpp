@@ -1,7 +1,7 @@
 #include "memory.hpp"
 #include <iostream>
 
-using std::unique_ptr;
+using std::shared_ptr;
 using HPS::Memory;
 using HPS::Component;
 
@@ -13,8 +13,8 @@ Memory::Memory(dict &d) {
 
 void Memory::simulate() {}
 
-unique_ptr<Component> Memory::makeFromFileContent(dict &d) {
-  return unique_ptr<Component>(new Memory(d));
+shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
+  return shared_ptr<Component>(new Memory(d));
 }
 
 

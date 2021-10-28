@@ -6,11 +6,14 @@
 
 namespace HPS {
   class Display : public Component {
+    std::shared_ptr<Component> source;
+    double refreshRate;
+  
   public:
     Display();
     Display(dict&);
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
   };
 }
 

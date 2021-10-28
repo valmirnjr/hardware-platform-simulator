@@ -6,7 +6,7 @@
 
 using std::map;
 using std::string;
-using std::unique_ptr;
+using std::shared_ptr;
 using HPS::Component;
 using HPS::Platform;
 using HPS::dict;
@@ -44,6 +44,7 @@ void Platform::load() {
     
     string compType = getContentType(content, dir);
 
+    // If our factory has a defined constructor for this component type
     if (factoryMap.count(compType) > 0) {
       std::cout << "Loading " << compType << std::endl;
       components.push_back(
@@ -56,12 +57,12 @@ void Platform::load() {
   }
 }
 
-unique_ptr<Component> Platform::makeFromFileContent(HPS::dict &fc) {
-  unique_ptr<Component> comp(new Platform(fc));
+shared_ptr<Component> Platform::makeFromFileContent(HPS::dict &fc) {
+  shared_ptr<Component> comp(new Platform(fc));
   return comp;
 }
 
-void Platform::addDependencies(unique_ptr<Component> &comp, dict &content) {
+void Platform::addDependencies(shared_ptr<Component> &comp, dict &content) {
   if (comp->getType() == constants::CPU) {
     vec2d<string> programContent = importer.importAsVector(dir + content[constants::PROGRAM]); // TODO try catch this
 
@@ -74,13 +75,13 @@ void Platform::addDependencies(unique_ptr<Component> &comp, dict &content) {
 void Platform::bindComponents() {
 }
 
-map<string, unique_ptr<Component>> Platform::initMap() {
-  map<string, unique_ptr<Component>> m;
-  m.emplace(constants::PLATFORM, unique_ptr<Component>(new Platform()));
-  m.emplace(constants::BUS, unique_ptr<Component>(new Bus()));
-  m.emplace(constants::CPU, unique_ptr<Component>(new CPU()));
-  m.emplace(constants::DISPLAY, unique_ptr<Component>(new Display()));
-  m.emplace(constants::MEMORY, unique_ptr<Component>(new Memory()));
+map<string, shared_ptr<Component>> Platform::initMap() {
+  map<string, shared_ptr<Component>> m;
+  m.emplace(constants::PLATFORM, shared_ptr<Component>(new Platform()));
+  m.emplace(constants::BUS, shared_ptr<Component>(new Bus()));
+  m.emplace(constants::CPU, shared_ptr<Component>(new CPU()));
+  m.emplace(constants::DISPLAY, shared_ptr<Component>(new Display()));
+  m.emplace(constants::MEMORY, shared_ptr<Component>(new Memory()));
 
   return m;
 }
@@ -111,4 +112,4 @@ std::string HPS::getContentType(dict &content, const string rootPath) {
   return constants::PROGRAM;
 }
 
-map<string, unique_ptr<Component>> Platform::factoryMap = initMap();
+map<string, shared_ptr<Component>> Platform::factoryMap = initMap();

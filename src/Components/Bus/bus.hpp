@@ -21,8 +21,8 @@ namespace HPS {
     Bus();
     Bus(dict&);
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
-    bool bind(std::unique_ptr<Component>);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
+    bool bind(std::shared_ptr<Component>);
     DataValue read();
     int getReadCount();
     std::ostream& outstream(std::ostream&);

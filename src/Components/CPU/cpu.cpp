@@ -2,7 +2,7 @@
 #include <iostream>
 #include <exception>
 
-using std::unique_ptr;
+using std::shared_ptr;
 using std::string;
 using HPS::CPU;
 using HPS::Component;
@@ -13,6 +13,8 @@ CPU::CPU(const string &label, const int &numCores, const double &frequency)
   : activeCore(0), numCores(numCores), frequency(frequency) {
   this->label = label;
   this->type = constants::CPU;
+
+  // TODO print this only if verbose mode is on
   std::cout << *this;
 }
 
@@ -27,7 +29,11 @@ void CPU::simulate() {
   }
 }
 
-unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
+/**
+ * @brief Creates a CPU from a dict if the dict arguments are good.
+ * @returns A shared_ptr to a CPU object
+ */
+shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
   string label;
   int numCores;
   double frequency;
@@ -49,7 +55,7 @@ unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
     }
   }
   
-  return unique_ptr<Component>(new CPU(label, numCores, frequency));
+  return shared_ptr<Component>(new CPU(label, numCores, frequency));
 }
 
 void CPU::setProgram(const Program &p) {

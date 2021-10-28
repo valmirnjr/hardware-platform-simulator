@@ -18,7 +18,7 @@ namespace HPS {
     CPU();
     CPU(const std::string&, const int&, const double&);
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
     void setProgram(const Program&);
     std::ostream& outstream(std::ostream &out);
   };

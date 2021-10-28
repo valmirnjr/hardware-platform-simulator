@@ -1,7 +1,7 @@
 #include "display.hpp"
 #include <iostream>
 
-using std::unique_ptr;
+using std::shared_ptr;
 using HPS::Display;
 using HPS::Component;
 
@@ -13,8 +13,8 @@ Display::Display(dict &d) {
 
 void Display::simulate() {}
 
-unique_ptr<Component> Display::makeFromFileContent(dict &d) {
-  return unique_ptr<Component>(new Display(d));
+shared_ptr<Component> Display::makeFromFileContent(dict &d) {
+  return shared_ptr<Component>(new Display(d));
 }
 
 
