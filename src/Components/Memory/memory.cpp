@@ -16,8 +16,13 @@ Memory::Memory(const string label, const string src, const double accessTime, co
   : accessTime(accessTime), size(size) {
   this->label = label;
   this->sourceName = src;
-  this->type = constants::MEMORY;
   content = unique_ptr<MemContent>(new MemContent(size));
+
+  std::cout << *this;
+}
+
+std::string Memory::getType() {
+  return constants::MEMORY;
 }
 
 void Memory::simulate() {}
@@ -55,3 +60,17 @@ shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
 
   return shared_ptr<Component>(new Memory(label, sourceName, accessTime, size));
 }
+
+std::ostream& Memory::outstream(std::ostream &out) {
+  out << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
+  out << "\t" << constants::LABEL << ": " << label << std::endl;
+  out << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
+  out << "\t" << constants::ACCESS << ": " << accessTime << std::endl;
+  out << "\t" << constants::SIZE << ": " << size << std::endl;
+  out << "}" << std::endl;
+  return out;
+}
+
+std::ostream & HPS::operator<<(std::ostream &os, Memory &m) {
+  return m.outstream(os);
+};

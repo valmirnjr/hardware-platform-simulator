@@ -22,12 +22,15 @@ namespace HPS {
   public:
     Memory();
     Memory(std::string, std::string, double, int);
+    std::string getType();
     void simulate();
     DataValue read();
     std::shared_ptr<Component> makeFromFileContent(dict&);
+    std::ostream& outstream(std::ostream &out);
   };
 
   bool isValueValid(double);
+  std::ostream & operator<<(std::ostream&, Memory&);
 }
 
 #endif
