@@ -2,7 +2,7 @@
 A simplified simulator of hardware components. The simulator loads textual definitions of hardware components, builds a platform with the loaded components and simulates their behavior.
 
 ## Week 1
-### 04/09/2021 - 11/09/2021
+### 04/10/2021 - 11/10/2021
 
 - [x] Class diagram
 - [x] Project folder structure
@@ -33,7 +33,7 @@ hardware-platform-simulator/
 The namespace organization follows the convetion described in: https://iamsorush.com/posts/namespace-cpp/
 
 ## Week 2
-### 11/09/2021 - 18/09/2021
+### 11/10/2021 - 18/10/2021
 
 - [x] Implement Factory Pattern
   - [x] Call constructor according to component type
@@ -50,7 +50,7 @@ A factory pattern is implemented as a platform method through the use of a map o
 Where *compType* is a string and content is a map<string, string> with the properties read from the file.
 
 ## Week 3
-### 18/09/2021 - 25/09/2021
+### 18/10/2021 - 25/10/2021
 
 - [x] Create Register
 - [x] Create Program class
@@ -66,3 +66,19 @@ Where *compType* is a string and content is a map<string, string> with the prope
 ### Instruction execute method
 
 ### Import methods (importAsDict x importAsVec)
+
+## Week 4
+### 25/10/2021 - 01/10/2021
+
+- [x] Do parameter verification inside `makeFromFileContent`
+- [x] Create Circular Buffer
+- [x] `read` method for Bus, CPU, Display and Memory
+- [x] Display simulate method
+- [x] Add readable and bindable behaviour (done by using interfaces)
+- [x] Bind components
+- [ ] Test memory
+- [ ] Test read methods
+
+### Circular Buffer
+
+### IReadableComponent and IBindableComponent
