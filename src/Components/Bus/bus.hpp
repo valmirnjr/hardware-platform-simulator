@@ -5,9 +5,13 @@
 #include <vector>
 #include <queue>
 #include <memory>
+
 #include "../../Common/common.hpp"
 #include "../IReadableComponent/ireadablecomponent.hpp"
 #include "../IBindableComponent/ibindablecomponent.hpp"
+
+// Used by bus.cpp
+#include <iostream>
 
 namespace HPS {
   class Bus : public IReadableComponent, public IBindableComponent {
@@ -19,7 +23,8 @@ namespace HPS {
     
   public:
     Bus();
-    Bus(dict&);
+    Bus(std::string, std::string, int);
+    std::string getType();
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
     DataValue read();
