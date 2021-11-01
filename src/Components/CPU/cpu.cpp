@@ -32,7 +32,7 @@ void CPU::simulate() {
 
 DataValue CPU::read() {
   DataValue oldest = {
-    false, // valid
+    false, // validity
     0      // value
   };
 
@@ -75,11 +75,7 @@ shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
 
 void CPU::setProgram(const Program &p) {
   prog = p;
-  std::cout << "Setting program: " << prog;
-}
-
-std::string CPU::getLabel() {
-  return label;
+  // std::cout << "Setting program: " << prog;
 }
 
 std::ostream& CPU::outstream(std::ostream &out) {
