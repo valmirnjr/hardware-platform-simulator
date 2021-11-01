@@ -5,16 +5,14 @@
 #include <vector>
 #include <queue>
 #include <memory>
-#include <fstream>
 #include "../../Common/common.hpp"
-#include "../Readable/readable.hpp"
+#include "../IReadableComponent/ireadablecomponent.hpp"
+#include "../IBindableComponent/ibindablecomponent.hpp"
 
 namespace HPS {
-  class Bus : public ReadableComponent {
-    std::string label;
+  class Bus : public IReadableComponent, public IBindableComponent {
     static const std::string type;
     int width;
-    std::string sourceName;
     std::vector<DataValue> pending;
     std::queue<DataValue> ready;
     int readCount;
@@ -24,8 +22,6 @@ namespace HPS {
     Bus(dict&);
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
-    std::string getLabel();
-    bool bind(std::shared_ptr<Component>);
     DataValue read();
     int getReadCount();
     std::ostream& outstream(std::ostream&);

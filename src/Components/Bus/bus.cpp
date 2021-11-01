@@ -46,10 +46,6 @@ shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
   return shared_ptr<Component>(new Bus(d));
 }
 
-std::string Bus::getLabel() {
-  return label;
-}
-
 std::ostream& Bus::outstream(std::ostream &out) {
   out << constants::TYPE << ": {" << std::endl;
   out << "\t" << constants::LABEL << ": " << label << std::endl;
