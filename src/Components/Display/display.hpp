@@ -16,6 +16,7 @@ namespace HPS {
   public:
     Display();
     Display(const double&);
+    std::string getType();
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
   };

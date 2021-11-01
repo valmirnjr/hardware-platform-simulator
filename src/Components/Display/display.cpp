@@ -10,6 +10,10 @@ Display::Display() {}
 
 Display::Display(const double &refreshRate) : refreshRate(refreshRate) { }
 
+std::string Display::getType() {
+  return constants::DISPLAY;
+}
+
 void Display::simulate() {
   if (!source) return;
   
