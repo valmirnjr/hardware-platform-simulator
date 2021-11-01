@@ -2,7 +2,7 @@
 #define DISPLAY_HPP
 
 #include <memory>
-#include "../Readable/readable.hpp"
+#include "../IBindableComponent/ibindablecomponent.hpp"
 
 // Used by display.cpp
 #include <string>
@@ -10,8 +10,7 @@
 #include <iostream>
 
 namespace HPS {
-  class Display : public Component {
-    std::shared_ptr<ReadableComponent> source;
+  class Display : public IBindableComponent {
     double refreshRate;
   
   public:
