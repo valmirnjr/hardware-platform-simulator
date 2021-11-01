@@ -13,10 +13,13 @@ CPU::CPU() {}
 CPU::CPU(const string &label, const int &numCores, const double &frequency)
   : activeCore(0), numCores(numCores), frequency(frequency) {
   this->label = label;
-  this->type = constants::CPU;
 
   // TODO print this only if verbose mode is on
   std::cout << *this;
+}
+
+std::string CPU::getType() {
+  return constants::CPU;
 }
 
 void CPU::simulate() {

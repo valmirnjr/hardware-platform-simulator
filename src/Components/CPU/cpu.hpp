@@ -17,6 +17,7 @@ namespace HPS {
   public:
     CPU();
     CPU(const std::string&, const int&, const double&);
+    std::string getType();
     void simulate();
     DataValue read();
     std::shared_ptr<Component> makeFromFileContent(dict&);
