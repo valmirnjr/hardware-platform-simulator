@@ -1,9 +1,9 @@
 CC = g++
-TARGET = component
+# TARGET = component
 SUBDIRS = Platform Bus CPU Memory Display IBindableComponent IReadableComponent #$(wildcard */.)
 export OBJDIR
 
-all: $(SUBDIRS) $(OBJDIR)/$(TARGET).o
+all: $(SUBDIRS) #$(OBJDIR)/$(TARGET).o
 
 $(OBJDIR)/$(TARGET).o: $(TARGET).cpp
 	$(CC) -c -o $@ $<
