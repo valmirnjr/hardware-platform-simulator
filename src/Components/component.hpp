@@ -7,11 +7,8 @@
 
 namespace HPS {
   class Component {
-  protected:
-    std::string type;
-
   public:
-    std::string getType();
+    virtual std::string getType() = 0;
     virtual void simulate() = 0;
     virtual std::shared_ptr<Component> makeFromFileContent(dict&) = 0;
   };
