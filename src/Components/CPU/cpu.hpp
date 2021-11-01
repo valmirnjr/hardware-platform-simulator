@@ -2,12 +2,12 @@
 #define CPU_HPP
 
 #include <memory>
-#include "../component.hpp"
+#include "../IReadableComponent/ireadablecomponent.hpp"
 #include "../../Program/program.hpp"
 #include "../../Register/register.hpp"
 
 namespace HPS {
-  class CPU : public Component {
+  class CPU : public IReadableComponent {
     Program prog;
     Register reg;
     double frequency;
@@ -17,8 +17,10 @@ namespace HPS {
   public:
     CPU();
     CPU(const std::string&, const int&, const double&);
+    std::string getType();
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
+    DataValue read();
+    std::shared_ptr<Component> makeFromFileContent(dict&);
     void setProgram(const Program&);
     std::ostream& outstream(std::ostream &out);
   };

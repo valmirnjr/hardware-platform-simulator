@@ -1,4 +1,6 @@
 #include "platform.hpp"
+
+// TODO remove these imports from here
 #include "../Bus/bus.hpp"
 #include "../CPU/cpu.hpp"
 #include "../Display/display.hpp"
@@ -6,8 +8,10 @@
 
 using std::map;
 using std::string;
-using std::unique_ptr;
+using std::shared_ptr;
 using HPS::Component;
+using HPS::IReadableComponent;
+using HPS::IBindableComponent;
 using HPS::Platform;
 using HPS::dict;
 
@@ -32,6 +36,10 @@ Platform::Platform(dict &fc) {
   return;
 }
 
+std::string Platform::getType() {
+  return constants::PLATFORM;
+}
+
 void Platform::simulate() {
   for (auto &c : components) {
     c->simulate();
@@ -44,24 +52,38 @@ void Platform::load() {
     
     string compType = getContentType(content, dir);
 
-    if (factoryMap.count(compType) > 0) {
-      std::cout << "Loading " << compType << std::endl;
-      components.push_back(
-        factoryMap[compType]->makeFromFileContent(content)
-      );
-      addDependencies(components.back(), content);
-    } else {
-      std::cout << "Error: unknown compType: " << compType << std::endl;
+    if (factoryMap.count(compType) == 0) {
+      // If no constructor was defined for this component type...
+      throw std::runtime_error("Error: unknown compType \"" + compType + "\"\n");
     }
+
+    std::cout << "Loading " << compType << std::endl;
+
+    // Create new component of base class type
+    shared_ptr<Component> newComp = factoryMap[compType]->makeFromFileContent(content);
+
+    if (content.count(constants::SOURCE) > 0) { // Bindable type
+      // Cast the new comp to the child type and save it separately
+      bindableComps.push_back(
+        std::dynamic_pointer_cast<IBindableComponent>(newComp)
+      );
+    }
+    if (content.count(constants::LABEL)) { // Readable type
+      readableComps.push_back(
+        std::dynamic_pointer_cast<IReadableComponent>(newComp)
+      );
+    }
+    components.push_back(newComp);
+    addDependencies(components.back(), content);
   }
 }
 
-unique_ptr<Component> Platform::makeFromFileContent(HPS::dict &fc) {
-  unique_ptr<Component> comp(new Platform(fc));
+shared_ptr<Component> Platform::makeFromFileContent(HPS::dict &fc) {
+  shared_ptr<Component> comp(new Platform(fc));
   return comp;
 }
 
-void Platform::addDependencies(unique_ptr<Component> &comp, dict &content) {
+void Platform::addDependencies(shared_ptr<Component> &comp, dict &content) {
   if (comp->getType() == constants::CPU) {
     vec2d<string> programContent = importer.importAsVector(dir + content[constants::PROGRAM]); // TODO try catch this
 
@@ -72,17 +94,28 @@ void Platform::addDependencies(unique_ptr<Component> &comp, dict &content) {
 }
 
 void Platform::bindComponents() {
+  for (auto const &comp : bindableComps) {
+    shared_ptr<IReadableComponent> src = findSourceWithLabel(comp->getSourceName());
+    if (src == nullptr) {
+      throw std::runtime_error("Source with name \"" + comp->getSourceName() + "\" could not be found.");
+    }
+    comp->bind(src);
+  }
 }
 
-map<string, unique_ptr<Component>> Platform::initMap() {
-  map<string, unique_ptr<Component>> m;
-  m.emplace(constants::PLATFORM, unique_ptr<Component>(new Platform()));
-  m.emplace(constants::BUS, unique_ptr<Component>(new Bus()));
-  m.emplace(constants::CPU, unique_ptr<Component>(new CPU()));
-  m.emplace(constants::DISPLAY, unique_ptr<Component>(new Display()));
-  m.emplace(constants::MEMORY, unique_ptr<Component>(new Memory()));
+map<string, shared_ptr<Component>> Platform::initMap() {
+  map<string, shared_ptr<Component>> m;
+  m.emplace(constants::PLATFORM, shared_ptr<Component>(new Platform()));
+  m.emplace(constants::BUS, shared_ptr<Component>(new Bus()));
+  m.emplace(constants::CPU, shared_ptr<Component>(new CPU()));
+  m.emplace(constants::DISPLAY, shared_ptr<Component>(new Display()));
+  m.emplace(constants::MEMORY, shared_ptr<Component>(new Memory()));
 
   return m;
+}
+
+std::string Platform::getLabel() {
+  return label;
 }
 
 std::vector<std::string> Platform::getFilenamesFromContent(dict content) {
@@ -111,4 +144,13 @@ std::string HPS::getContentType(dict &content, const string rootPath) {
   return constants::PROGRAM;
 }
 
-map<string, unique_ptr<Component>> Platform::factoryMap = initMap();
+shared_ptr<IReadableComponent> Platform::findSourceWithLabel(const string &targetLabel) {
+  for (auto const &readableComp : readableComps) {
+    if (readableComp->getLabel() == targetLabel) {
+      return readableComp;
+    }
+  }
+  return nullptr;
+}
+
+map<string, shared_ptr<Component>> Platform::factoryMap = initMap();

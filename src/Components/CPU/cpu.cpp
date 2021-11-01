@@ -2,18 +2,24 @@
 #include <iostream>
 #include <exception>
 
-using std::unique_ptr;
+using std::shared_ptr;
 using std::string;
 using HPS::CPU;
 using HPS::Component;
+using HPS::DataValue;
 
 CPU::CPU() {}
 
 CPU::CPU(const string &label, const int &numCores, const double &frequency)
   : activeCore(0), numCores(numCores), frequency(frequency) {
   this->label = label;
-  this->type = constants::CPU;
+
+  // TODO print this only if verbose mode is on
   std::cout << *this;
+}
+
+std::string CPU::getType() {
+  return constants::CPU;
 }
 
 void CPU::simulate() {
@@ -27,7 +33,25 @@ void CPU::simulate() {
   }
 }
 
-unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
+DataValue CPU::read() {
+  DataValue oldest = {
+    false, // validity
+    0      // value
+  };
+
+  if (!reg.isEmpty()) {
+    oldest.value = reg.read();
+    oldest.valid = true;
+  }
+
+  return oldest;
+}
+
+/**
+ * @brief Creates a CPU from a dict if the dict arguments are good.
+ * @returns A shared_ptr to a CPU object
+ */
+shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
   string label;
   int numCores;
   double frequency;
@@ -49,12 +73,12 @@ unique_ptr<Component> CPU::makeFromFileContent(dict &d) {
     }
   }
   
-  return unique_ptr<Component>(new CPU(label, numCores, frequency));
+  return shared_ptr<Component>(new CPU(label, numCores, frequency));
 }
 
 void CPU::setProgram(const Program &p) {
   prog = p;
-  std::cout << "Setting program: " << prog;
+  // std::cout << "Setting program: " << prog;
 }
 
 std::ostream& CPU::outstream(std::ostream &out) {

@@ -1,5 +1,7 @@
 #include "common.hpp"
-#include <exception>
+
+using std::vector;
+using std::string;
 
 void HPS::print(const std::vector<std::string> &v) {
   std::cout << "{ ";
@@ -33,4 +35,15 @@ int HPS::cstrToInt(const char *s) {
     throw std::bad_cast();
   }
   return i;
+}
+
+vector<string> HPS::getDictMissingKeys(const dict &d, const std::vector<std::string> &keys) {
+  vector<string> missingKeys;
+  for (auto const &k : keys) {
+     if (d.count(k) == 0) {
+       missingKeys.push_back(k);
+     }
+  }
+
+  return missingKeys;
 }

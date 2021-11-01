@@ -2,16 +2,27 @@
 #define DISPLAY_HPP
 
 #include <memory>
-#include "../component.hpp"
+#include "../IBindableComponent/ibindablecomponent.hpp"
+
+// Used by display.cpp
+#include <string>
+#include <vector>
+#include <iostream>
 
 namespace HPS {
-  class Display : public Component {
+  class Display : public IBindableComponent {
+    double refreshRate;
+  
   public:
     Display();
-    Display(dict&);
+    Display(const double&, const std::string&);
+    std::string getType();
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
+    std::ostream& outstream(std::ostream &out);
   };
+
+  std::ostream & operator<<(std::ostream&, Display&);
 }
 
 #endif

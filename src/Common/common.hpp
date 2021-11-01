@@ -7,6 +7,9 @@
 #include <unordered_set>
 #include <iostream>
 
+// Used by common.cpp
+#include <exception>
+
 namespace HPS {
   namespace constants {
     // File property keys
@@ -17,6 +20,9 @@ namespace HPS {
     constexpr char COMPONENTS[] = "COMPONENTS";
     constexpr char CORES[] = "CORES";
     constexpr char FREQUENCY[] = "FREQUENCY";
+    constexpr char ACCESS[] = "ACCESS";
+    constexpr char SIZE[] = "SIZE";
+    constexpr char REFRESH[] = "REFRESH";
 
     // Component types
     constexpr char BUS[] = "BUS";
@@ -60,6 +66,9 @@ namespace HPS {
   void print(const dict&);
 
   int cstrToInt(const char*);
+
+  // Validation functions
+  std::vector<std::string> getDictMissingKeys(const dict&, const std::vector<std::string>&);
 }
 
 

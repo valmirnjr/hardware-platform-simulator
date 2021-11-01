@@ -3,26 +3,30 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 #include <memory>
-#include <fstream>
-#include "../component.hpp"
+
 #include "../../Common/common.hpp"
+#include "../IReadableComponent/ireadablecomponent.hpp"
+#include "../IBindableComponent/ibindablecomponent.hpp"
+
+// Used by bus.cpp
+#include <iostream>
 
 namespace HPS {
-  class Bus : public Component {
+  class Bus : public IReadableComponent, public IBindableComponent {
     static const std::string type;
     int width;
-    std::string sourceName;
     std::vector<DataValue> pending;
-    std::vector<DataValue> ready;
+    std::queue<DataValue> ready;
     int readCount;
     
   public:
     Bus();
-    Bus(dict&);
+    Bus(std::string, std::string, int);
+    std::string getType();
     void simulate();
-    std::unique_ptr<Component> makeFromFileContent(dict&);
-    bool bind(std::unique_ptr<Component>);
+    std::shared_ptr<Component> makeFromFileContent(dict&);
     DataValue read();
     int getReadCount();
     std::ostream& outstream(std::ostream&);
