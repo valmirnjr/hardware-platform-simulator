@@ -15,11 +15,14 @@ namespace HPS {
   
   public:
     Display();
-    Display(const double&);
+    Display(const double&, const std::string&);
     std::string getType();
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
+    std::ostream& outstream(std::ostream &out);
   };
+
+  std::ostream & operator<<(std::ostream&, Display&);
 }
 
 #endif

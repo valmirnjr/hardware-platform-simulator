@@ -8,7 +8,11 @@ using HPS::Component;
 
 Display::Display() {}
 
-Display::Display(const double &refreshRate) : refreshRate(refreshRate) { }
+Display::Display(const double &refreshRate, const string &src) : refreshRate(refreshRate) {
+  sourceName = src;
+
+  std::cout << *this;
+}
 
 std::string Display::getType() {
   return constants::DISPLAY;
@@ -33,7 +37,7 @@ void Display::simulate() {
 
 shared_ptr<Component> Display::makeFromFileContent(dict &d) {
   // Check if all necessary keys are present in the dictionary
-  vector<string> mandatoryKeys({ constants::REFRESH });
+  vector<string> mandatoryKeys({ constants::REFRESH, constants::SOURCE });
   vector<string> missingKeys = getDictMissingKeys(d, mandatoryKeys);
   if (missingKeys.size() > 0) {
     string errorMsg = "Display dictionary is missing the following key(s): ";
@@ -46,6 +50,19 @@ shared_ptr<Component> Display::makeFromFileContent(dict &d) {
   std::cout << "Creating Display" << std::endl;
 
   double refreshRate = std::stod(d[constants::REFRESH]);
+  string sourceName = d[constants::SOURCE];
 
-  return shared_ptr<Component>(new Display(refreshRate));
+  return shared_ptr<Component>(new Display(refreshRate, sourceName));
 }
+
+std::ostream& Display::outstream(std::ostream &out) {
+  out << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
+  out << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
+  out << "\t" << constants::REFRESH << ": " << refreshRate << std::endl;
+  out << "}" << std::endl;
+  return out;
+}
+
+std::ostream & HPS::operator<<(std::ostream &os, Display &d) {
+  return d.outstream(os);
+};
