@@ -5,16 +5,18 @@ using std::shared_ptr;
 using std::string;
 using std::vector;
 using HPS::Memory;
-using HPS::ReadableComponent;
+using HPS::IReadableComponent;
 using HPS::Component;
 using HPS::DataValue;
 using HPS::CircularBuffer;
 
 Memory::Memory() {}
 
-Memory::Memory(const string label, const double accessTime, const int size)
+Memory::Memory(const string label, const string src, const double accessTime, const int size)
   : accessTime(accessTime), size(size) {
   this->label = label;
+  this->sourceName = src;
+  this->type = constants::MEMORY;
   content = unique_ptr<MemContent>(new MemContent(size));
 }
 
@@ -34,7 +36,7 @@ DataValue Memory::read() {
 
 shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
   // Check if all necessary keys are present in the dictionary
-  vector<string> mandatoryKeys({ constants::LABEL, constants::ACCESS, constants::SIZE });
+  vector<string> mandatoryKeys({ constants::LABEL, constants::SOURCE, constants::ACCESS, constants::SIZE });
   vector<string> missingKeys = getDictMissingKeys(d, mandatoryKeys);
   if (missingKeys.size() > 0) {
     string errorMsg = "Memory dictionary is missing the following key(s): ";
@@ -47,12 +49,9 @@ shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
   std::cout << "Creating Memory: " << d[constants::LABEL] << std::endl;
 
   string label = d[constants::LABEL];
+  string sourceName = d[constants::SOURCE];
   double accessTime = std::stod(d[constants::ACCESS]);
   int size = cstrToInt(d[constants::SIZE].c_str());
 
-  return shared_ptr<Component>(new Memory(label, accessTime, size));
-}
-
-std::string Memory::getLabel() {
-  return label;
+  return shared_ptr<Component>(new Memory(label, sourceName, accessTime, size));
 }
