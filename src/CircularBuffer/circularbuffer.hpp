@@ -63,8 +63,11 @@ namespace HPS {
       *tail = data;
       currentSize++;
     } else if (currentSize == capacity) {
-      tail += 1;
+      tail = head;
       head += 1;
+      if (head == &values[capacity - 1]) {
+        head = values;
+      }
       *tail = data;
     } else {
       throw std::out_of_range("CircularBuffer size error.");
