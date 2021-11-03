@@ -17,7 +17,7 @@ namespace HPS {
   class Bus : public IReadableComponent, public IBindableComponent {
     static const std::string type;
     int width;
-    std::vector<DataValue> pending;
+    std::queue<DataValue> pending;
     std::queue<DataValue> ready;
     int readCount;
     

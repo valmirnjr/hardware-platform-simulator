@@ -22,7 +22,24 @@ std::string Bus::getType() {
   return constants::BUS;
 }
 
-void Bus::simulate() {}
+void Bus::simulate() {
+  // Move pending values to ready
+  while (!pending.empty()) {
+    ready.push(pending.front());
+    pending.pop();
+  }
+
+  // Read W values and store them if they valid
+  DataValue newData;
+  for (int i = 0; i < width; i++) {
+    newData = source->read();
+    if (newData.valid) {
+      pending.push(newData);
+    } else {
+      break;
+    }
+  }
+}
 
 DataValue Bus::read() {
   readCount++;
@@ -61,7 +78,7 @@ shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
 }
 
 std::ostream& Bus::outstream(std::ostream &out) {
-  out << constants::TYPE << ": {" << std::endl;
+  out << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
   out << "\t" << constants::LABEL << ": " << label << std::endl;
   out << "\t" << constants::WIDTH << ": " << width << std::endl;
   out << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
