@@ -25,7 +25,19 @@ std::string Memory::getType() {
   return constants::MEMORY;
 }
 
-void Memory::simulate() {}
+void Memory::simulate() {
+  static int waitingTime = 0;
+  
+  if (waitingTime <= 0) {
+    DataValue data = source->read();
+    while (data.valid) {
+      content->write(data.value);
+      data = source->read();
+    }
+    waitingTime = accessTime;
+  }
+  waitingTime--;  
+}
 
 DataValue Memory::read() {
   DataValue data = {
