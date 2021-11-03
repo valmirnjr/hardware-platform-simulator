@@ -6,6 +6,7 @@ using std::string;
 // Global variable for verbosity control
 namespace HPS {
   int verboseLevel = 0;
+  int numSimulationSteps = 1;
 };
 
 void HPS::print(const std::vector<std::string> &v) {
@@ -87,4 +88,18 @@ void HPS::parseArgs(int argc, char* argv[]) {
       }
     }
   }
+
+  // Get number of steps. The syntax in the command line is hps.exe -v --steps N,
+  // where N is an integer representing the number of desired steps.
+  const char *steps = "--steps";
+  for (int arg = 1; arg < argc; arg++) {
+    if (strcmp(steps, argv[arg]) == 0) {
+      if (arg + 1 < argc) { // The next argument should be the number of steps
+        HPS::numSimulationSteps = cstrToInt(argv[arg + 1]);
+      } else {
+        spdlog::warn("Using 1 simulation step since no value was specified.");
+      }
+    }
+  }
+  spdlog::info("Number of simulation steps = " + std::to_string(numSimulationSteps));
 }

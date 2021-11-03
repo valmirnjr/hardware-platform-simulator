@@ -75,6 +75,9 @@ namespace HPS {
   extern int verboseLevel;
   void initLogger();
 
+  // Number of simulation steps global variable
+  extern int numSimulationSteps;
+
   // Command line arguments parser
   void parseArgs(int, char**);
 }
