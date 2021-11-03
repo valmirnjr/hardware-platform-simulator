@@ -9,6 +9,7 @@
 
 // Used by common.cpp
 #include <exception>
+#include <spdlog/spdlog.h>
 
 namespace HPS {
   namespace constants {
@@ -69,6 +70,13 @@ namespace HPS {
 
   // Validation functions
   std::vector<std::string> getDictMissingKeys(const dict&, const std::vector<std::string>&);
+
+  // Verbose level global variable
+  extern int verboseLevel;
+  void initLogger();
+
+  // Command line arguments parser
+  void parseArgs(int, char**);
 }
 
 
