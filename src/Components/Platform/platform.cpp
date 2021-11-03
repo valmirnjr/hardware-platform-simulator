@@ -19,6 +19,11 @@ const string Platform::type = HPS::constants::PLATFORM;
 
 Platform::Platform() {}
 
+/**
+ * @brief Creates a platform from a textfile.
+ * @param dir the directory path to the platform text file.
+ * @param filename the platform base filename.
+ */
 Platform::Platform(std::string dir, std::string filename) : dir(dir), filename(filename) {
   dict content = importer.importAsDict(dir + filename);
   string compType = getContentType(content, dir);
@@ -40,12 +45,18 @@ std::string Platform::getType() {
   return constants::PLATFORM;
 }
 
+/**
+ * @brief Simulates each component inside the platform.
+ */
 void Platform::simulate() {
   for (auto &c : components) {
     c->simulate();
   }
 }
 
+/**
+ * @brief Loads all the components described in the platform file.
+ */
 void Platform::load() {
   for (auto const &filename : compFilenames) {
     dict content = importer.importAsDict(dir + filename);

@@ -15,6 +15,9 @@
 #include <exception>
 
 namespace HPS {
+  /**
+   * @brief Component that contains other Components. Uses the composite architecture.
+   */
   class Platform : public Component {
   private:
     static const std::string type;
