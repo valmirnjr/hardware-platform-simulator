@@ -5,6 +5,9 @@
 #include <vector>
 #include <map>
 
+// Used by instruction.cpp
+#include <sstream>
+
 namespace HPS {
   class Instruction {
     std::string code;
@@ -19,6 +22,7 @@ namespace HPS {
     bool isCodeValid();
     bool areOpsValid();
     std::ostream& outstream(std::ostream &out);
+    std::string toString();
 
     // Instructions
     double NOP();

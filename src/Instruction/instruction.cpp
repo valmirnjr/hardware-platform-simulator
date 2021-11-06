@@ -80,8 +80,14 @@ double Instruction::DIV() {
 }
 
 std::ostream& Instruction::outstream(std::ostream &out) {
-  out << code << " " << operands.first << " " << operands.second << std::endl;
+  out << this->toString() << std::endl;
   return out;
+}
+
+std::string Instruction::toString() {
+  std::stringstream ss;
+  ss << code << " " << operands.first << " " << operands.second;
+  return ss.str();
 }
 
 std::ostream& HPS::operator<<(std::ostream &os, Instruction &b) {
