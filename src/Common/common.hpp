@@ -61,6 +61,8 @@ namespace HPS {
   typedef struct DataValue {
     bool valid;
     double value;
+
+    std::string toString();
   } DataValue;
 
   void print(const std::vector<std::string>&);

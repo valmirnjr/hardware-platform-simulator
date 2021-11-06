@@ -9,6 +9,13 @@ namespace HPS {
   int numSimulationSteps = 1;
 };
 
+string HPS::DataValue::toString() {
+  return (
+    "{\n\tvalid = " + std::to_string(this->valid) + "\n\tvalue = " 
+    + std::to_string(this->value) + "\n}"
+  );
+}
+
 void HPS::print(const std::vector<std::string> &v) {
   std::cout << "{ ";
   for (int i = 0; i < v.size(); i++) {
