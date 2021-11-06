@@ -7,7 +7,7 @@ namespace HPS {
   template<typename T>
   class CircularBuffer {
     int capacity;
-    int currentSize;
+    int size;
     T *values;
     T *head;
     T *tail;
@@ -18,7 +18,7 @@ namespace HPS {
     CircularBuffer(int);
     T read();
     void write(T&);
-    int getCurrentSize();
+    int getSize();
     int getCapacity();
   };
 
@@ -31,14 +31,14 @@ namespace HPS {
   }
 
   template<typename T>
-  CircularBuffer<T>::CircularBuffer(int cap) : capacity(cap), currentSize(0) {
+  CircularBuffer<T>::CircularBuffer(int cap) : capacity(cap), size(0) {
     values = new T[cap];
     head = tail = values;
   }
 
   template<typename T>
   T CircularBuffer<T>::read() {
-    if (currentSize <= 0) {
+    if (size <= 0) {
       throw std::out_of_range("Trying to read from empty buffer.");
     }
     double val = *head;
@@ -46,14 +46,14 @@ namespace HPS {
     if (head == &values[capacity - 1]) {
       head = values;
     }
-    currentSize--;
+    size--;
     return val;
   }
 
   template<typename T>
   void CircularBuffer<T>::write(T &data) {
-    if (currentSize < capacity) {
-      if (currentSize == 0) {
+    if (size < capacity) {
+      if (size == 0) {
         tail = head;
       } else if (tail == &values[capacity - 1]) { 
         tail = values;
@@ -61,8 +61,8 @@ namespace HPS {
         tail += 1;
       }
       *tail = data;
-      currentSize++;
-    } else if (currentSize == capacity) {
+      size++;
+    } else if (size == capacity) {
       tail = head;
       head += 1;
       if (head == &values[capacity - 1]) {
@@ -75,8 +75,8 @@ namespace HPS {
   }
 
   template<typename T>
-  int CircularBuffer<T>::getCurrentSize() {
-    return currentSize;
+  int CircularBuffer<T>::getSize() {
+    return size;
   }
 
   template<typename T>
