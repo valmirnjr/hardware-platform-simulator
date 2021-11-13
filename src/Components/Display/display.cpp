@@ -30,12 +30,12 @@ void Display::simulate() {
     DataValue data = source->read();
     spdlog::debug("Data read: " + data.toString());
     while (data.valid) {
-      buffer += " " + std::to_string(data.value);
+      buffer += std::to_string(data.value) + " ";
       data = source->read();
     }
 
     if (buffer.size() > 0) {
-      std::cout << buffer;
+      std::cout << buffer << std::endl;
       spdlog::debug("[Display] Output = " + buffer);
     }
 

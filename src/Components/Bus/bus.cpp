@@ -15,7 +15,7 @@ Bus::Bus(string label, string src, int width) : readCount(0), width(width) {
   this->label = label;
   this->sourceName = src;
 
-  std::cout << *this;
+  spdlog::info(this->toString());
 }
 
 std::string Bus::getType() {
@@ -75,7 +75,7 @@ shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
     throw std::runtime_error(errorMsg);
   }
 
-  std::cout << "Creating Bus: " << d[constants::LABEL] << std::endl;
+  spdlog::debug("Creating Bus: " + d[constants::LABEL]);
 
   string label = d[constants::LABEL];
   string sourceName = d[constants::SOURCE];

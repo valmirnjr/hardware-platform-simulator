@@ -18,7 +18,7 @@ Memory::Memory(const string label, const string src, const double accessTime, co
   this->sourceName = src;
   content = unique_ptr<MemContent>(new MemContent(size));
 
-  std::cout << *this;
+  spdlog::info(this->toString());
 }
 
 std::string Memory::getType() {
@@ -65,7 +65,7 @@ shared_ptr<Component> Memory::makeFromFileContent(dict &d) {
     throw std::invalid_argument(errorMsg);
   }
 
-  std::cout << "Creating Memory: " << d[constants::LABEL] << std::endl;
+  spdlog::debug("Creating Memory: " + d[constants::LABEL]);
 
   string label = d[constants::LABEL];
   string sourceName = d[constants::SOURCE];

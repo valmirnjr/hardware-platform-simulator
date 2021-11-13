@@ -35,7 +35,6 @@ Platform::Platform(std::string dir, std::string filename) : dir(dir), filename(f
   }
 
   compFilenames = getFilenamesFromContent(content);
-  HPS::print(compFilenames);
 }
 
 Platform::Platform(dict &fc) {
@@ -71,7 +70,7 @@ void Platform::load() {
       throw std::runtime_error("Error: unknown compType \"" + compType + "\"\n");
     }
 
-    std::cout << "Loading " << compType << std::endl;
+    spdlog::info("Loading " + compType);
 
     // Create new component of base class type
     shared_ptr<Component> newComp = factoryMap[compType]->makeFromFileContent(content);

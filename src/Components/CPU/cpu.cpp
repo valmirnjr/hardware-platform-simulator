@@ -14,8 +14,7 @@ CPU::CPU(const string &label, const int &numCores, const double &frequency)
   : activeCore(0), numCores(numCores), frequency(frequency) {
   this->label = label;
 
-  // TODO print this only if verbose mode is on
-  std::cout << *this;
+  spdlog::info(this->toString());
 }
 
 std::string CPU::getType() {
