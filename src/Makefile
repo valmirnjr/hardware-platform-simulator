@@ -14,10 +14,12 @@ export INCLUDE_PATHS = -I$(LIBDIR)/$(LOGLIB)/include
 # Spdlog libpath
 LOGLIBPATH = $(LIBDIR)/$(LOGLIB)/build
 
-all: $(SUBDIRS) $(OBJDIR)/$(TARGET).o
+all: $(SUBDIRS) $(OBJDIR)/$(TARGET).o $(EXEC)
 
 $(OBJDIR)/$(TARGET).o: $(TARGET).cpp
 	$(CC) $(INCLUDE_PATHS) -c -o $@ $<
+
+$(EXEC):
 	$(CC) -o $(EXEC) $(OBJDIR)/*.o -L$(LOGLIBPATH) -l$(LOGLIB)
 
 .PHONY: $(SUBDIRS) clean
@@ -29,3 +31,6 @@ clean:
 
 clean_target:
 	rm -f $(OBJDIR)/$(TARGET).o $(EXEC)
+
+clean_exec:
+	rm -f $(EXEC)

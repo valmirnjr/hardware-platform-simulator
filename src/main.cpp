@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
   mainPlatform.load();
   mainPlatform.bindComponents();
   for (int i = 0; i < HPS::numSimulationSteps; i++) {
+    spdlog::info("Simulation step number " + std::to_string(i + 1));
     mainPlatform.simulate();
   }
 

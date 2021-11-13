@@ -16,5 +16,7 @@ double Register::read() {
 }
 
 void Register::write(double val) {
+  spdlog::debug("[Register] Writing " + std::to_string(val));
   content.push(val);
+  spdlog::debug("[Register] Content size = " + std::to_string(content.size()));
 }
