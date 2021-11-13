@@ -12,6 +12,7 @@
 
 // Used by bus.cpp
 #include <iostream>
+#include <sstream>
 
 namespace HPS {
   class Bus : public IReadableComponent, public IBindableComponent {
@@ -29,7 +30,8 @@ namespace HPS {
     std::shared_ptr<Component> makeFromFileContent(dict&);
     DataValue read();
     int getReadCount();
-    std::ostream& outstream(std::ostream&);
+    std::string toString();
+    using IReadableComponent::outstream;
   };
 
   std::ostream & operator<<(std::ostream&, Bus&);

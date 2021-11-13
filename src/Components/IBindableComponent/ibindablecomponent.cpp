@@ -10,4 +10,7 @@ const std::string& IBindableComponent::getSourceName() {
   return sourceName;
 }
 
-IBindableComponent::~IBindableComponent() { }
+std::ostream& IBindableComponent::outstream(std::ostream &out) {
+  out << this->toString() << std::endl;
+  return out;
+}

@@ -23,15 +23,20 @@ std::string Bus::getType() {
 }
 
 void Bus::simulate() {
+  spdlog::trace(this->getLabel() + " simulation has started.");
+
   // Move pending values to ready
   while (!pending.empty()) {
     ready.push(pending.front());
     pending.pop();
+    spdlog::debug("[" + this->getLabel() + "] Moving pending value to ready...");
   }
+  spdlog::info("[" + this->getLabel() + "] " + std::to_string(ready.size()) + " ready value(s).");
 
   // Read W values and store them if they valid
   DataValue newData;
-  for (int i = 0; i < width; i++) {
+  int i;
+  for (i = 0; i < width; i++) {
     newData = source->read();
     if (newData.valid) {
       pending.push(newData);
@@ -39,6 +44,7 @@ void Bus::simulate() {
       break;
     }
   }
+  spdlog::info("[" + this->getLabel() + "] " + std::to_string(i) + " value(s) added to pending.");
 }
 
 DataValue Bus::read() {
@@ -53,6 +59,7 @@ DataValue Bus::read() {
     ready.pop();
   }
 
+  spdlog::info("[" + this->getLabel() + "] " + "Oldest value: " + oldest.toString());
   return oldest;
 }
 
@@ -77,13 +84,14 @@ shared_ptr<Component> Bus::makeFromFileContent(dict &d) {
   return shared_ptr<Component>(new Bus(label, sourceName, width));
 }
 
-std::ostream& Bus::outstream(std::ostream &out) {
-  out << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
-  out << "\t" << constants::LABEL << ": " << label << std::endl;
-  out << "\t" << constants::WIDTH << ": " << width << std::endl;
-  out << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
-  out << "}" << std::endl;
-  return out;
+std::string Bus::toString() {
+  std::stringstream ss;
+  ss << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
+  ss << "\t" << constants::LABEL << ": " << label << std::endl;
+  ss << "\t" << constants::WIDTH << ": " << width << std::endl;
+  ss << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
+  ss << "}" << std::endl;
+  return ss.str();
 }
 
 std::ostream & HPS::operator<<(std::ostream &os, Bus &b) {

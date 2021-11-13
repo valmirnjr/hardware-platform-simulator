@@ -13,6 +13,7 @@
 
 // Used by platform.cpp
 #include <exception>
+#include <sstream>
 
 namespace HPS {
   /**
@@ -29,7 +30,7 @@ namespace HPS {
     std::vector<std::string> compFilenames;
     std::string dir;
     std::string filename;
-    std::string label;
+    std::string label; // TODO check the use of this
 
   public:
     Platform();
@@ -45,6 +46,7 @@ namespace HPS {
     std::string getLabel();
     std::vector<std::string> getFilenamesFromContent(dict);
     std::shared_ptr<IReadableComponent> findSourceWithLabel(const std::string&);
+    std::string toString();
   };
 
   std::string getContentType(dict&, const std::string);

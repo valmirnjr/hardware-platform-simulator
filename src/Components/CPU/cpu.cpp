@@ -23,13 +23,16 @@ std::string CPU::getType() {
 }
 
 void CPU::simulate() {
+  spdlog::trace(this->getLabel() + " simulation has started.");
+  
+  Instruction inst;
   for (int i = 0; i < frequency; i++) {
-    Instruction inst = prog.compute();
-    reg.write(inst.execute());
+    inst = prog.compute();
+    spdlog::debug("[" + this->getLabel() + "] Executing " + inst.toString());
 
-    // TODO use verbose mode to print current instruction
-    // std::cout << "Executing " << inst;
-    // std::cout << "Result: " << reg.read() << std::endl;
+    double result = inst.execute();
+    reg.write(result);
+    spdlog::debug("[" + this->getLabel() + "] Result = " + std::to_string(result));
   }
 }
 
@@ -81,13 +84,14 @@ void CPU::setProgram(const Program &p) {
   // std::cout << "Setting program: " << prog;
 }
 
-std::ostream& CPU::outstream(std::ostream &out) {
-  out << constants::TYPE << ": {" << std::endl;
-  out << "\t" << constants::LABEL << ": " << label << std::endl;
-  out << "\t" << constants::CORES << ": " << numCores << std::endl;
-  out << "\t" << constants::FREQUENCY << ": " << frequency << std::endl;
-  out << "}" << std::endl;
-  return out;
+std::string CPU::toString() {
+  std::stringstream ss;
+  ss << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
+  ss << "\t" << constants::LABEL << ": " << label << std::endl;
+  ss << "\t" << constants::CORES << ": " << numCores << std::endl;
+  ss << "\t" << constants::FREQUENCY << ": " << frequency << std::endl;
+  ss << "}" << std::endl;
+  return ss.str();
 }
 
 std::ostream & HPS::operator<<(std::ostream &os, CPU &b) {

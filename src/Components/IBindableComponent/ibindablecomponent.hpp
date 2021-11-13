@@ -16,7 +16,8 @@ namespace HPS {
   public:
     void bind(std::shared_ptr<IReadableComponent> src);
     const std::string& getSourceName();
-    virtual ~IBindableComponent() = 0; // To make class abstract
+    std::ostream& outstream(std::ostream &out);
+    virtual std::string toString() = 0;
   };
 }
 
