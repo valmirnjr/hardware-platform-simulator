@@ -2,12 +2,15 @@
 #define CPU_HPP
 
 #include <memory>
+#include <string>
 #include "../IReadableComponent/ireadablecomponent.hpp"
 #include "../../Program/program.hpp"
 #include "../../Register/register.hpp"
 
 // Used by cpu.cpp
 #include <sstream>
+#include <iostream>
+#include <exception>
 
 namespace HPS {
   class CPU : public IReadableComponent {

@@ -1,9 +1,8 @@
 #include "cpu.hpp"
-#include <iostream>
-#include <exception>
 
 using std::shared_ptr;
 using std::string;
+using std::vector;
 using HPS::CPU;
 using HPS::Component;
 using HPS::DataValue;
@@ -54,25 +53,29 @@ DataValue CPU::read() {
  * @returns A shared_ptr to a CPU object
  */
 shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
-  string label;
-  int numCores;
-  double frequency;
+  // Check if all necessary keys are present in the dictionary
+  vector<string> mandatoryKeys({ constants::LABEL, constants::CORES, constants::FREQUENCY });
+  vector<string> missingKeys = getDictMissingKeys(d, mandatoryKeys);
+  if (missingKeys.size() > 0) {
+    string errorMsg = "CPU dictionary is missing the following key(s): ";
+    for (auto const &k : missingKeys) {
+      errorMsg += k + " ";
+    }
+    throw std::runtime_error(errorMsg);
+  }
 
-  if (d.count(constants::LABEL) > 0) {
-    label = d[constants::LABEL];
+  spdlog::debug("Creating CPU: " + d[constants::LABEL]);
+
+  string label = d[constants::LABEL];
+
+  int numCores = cstrToInt(d[constants::CORES].c_str());
+  if (numCores <= 0) {
+    throw std::invalid_argument("CPU Number of cores should be positive.");
   }
-  if (d.count(constants::CORES) > 0) {
-    numCores = cstrToInt(d[constants::CORES].c_str());
-    if (numCores <= 0) {
-      throw std::invalid_argument("CPU Number of cores should be positive.");
-    }
-  }
-  if (d.count(constants::FREQUENCY) > 0) {
-    char *p;
-    frequency = std::stod(d[constants::FREQUENCY]);
-    if (frequency <= 0.0) {
-      throw std::invalid_argument("CPU Frequency should be positive.");
-    }
+
+  double frequency = std::stod(d[constants::FREQUENCY]);
+  if (frequency <= 0.0) {
+    throw std::invalid_argument("CPU Frequency should be positive.");
   }
   
   return shared_ptr<Component>(new CPU(label, numCores, frequency));
