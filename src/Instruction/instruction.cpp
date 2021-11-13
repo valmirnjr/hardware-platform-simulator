@@ -14,18 +14,18 @@ using HPS::inst_method_t;
 Instruction::Instruction() {}
 
 /**
- * @param code: the instruction code.
- * @param op1: the instruction first operand, by default 0.0.
- * @param op2: the instruction second operand, by default 0.0.
+ * @param code: the instruction code (ADD, SUB, ...).
  */
-Instruction::Instruction(const string code, double op1/* =0.0 */, double op2/* =0.0 */) 
-  : code(code), operands(pair<double, double>(op1, op2)) {
-}
+Instruction::Instruction(const string code) : code(code) {}
 
+/**
+ * @param params: the instruction code code and its arguments in a string format.
+ */
 Instruction::Instruction(vector<string> &params) {
-  // TODO check if instruction params are valid
   code = params[0];
-  operands = pair<double, double>(stod(params[1]), stod(params[2]));
+  for (auto p = params.begin() + 1; p != params.end(); ++p) {
+    operands.push_back(stod(*p));
+  }
 }
 
 /**
@@ -52,7 +52,7 @@ bool Instruction::isCodeValid() {
 
 bool Instruction::areOpsValid() {
   // TODO verify if operands are valid according to the operation
-  return true;
+  return operands.size() >= 2;
 }
 
 bool Instruction::isValid() {
@@ -64,19 +64,51 @@ double Instruction::NOP() {
 }
 
 double Instruction::ADD() {
-  return operands.first + operands.second;
+  double res = 0;
+  for (auto const &op : operands) {
+    res += op;
+  }
+  return res;
 }
 
 double Instruction::SUB() {
-  return operands.first - operands.second;
+  double res = 0;
+  bool firstOpIsSet = false;
+  for (auto const &op : operands) {
+    if (!firstOpIsSet) {
+      res = op;
+      firstOpIsSet = true;
+    } else {
+      res -= op;
+    }
+  }
+  return res;
 }
 
 double Instruction::MUL() {
-  return operands.first * operands.second;
+  double res = 1;
+  for (auto const &op : operands) {
+    res *= op;
+  }
+  return res;
 }
 
 double Instruction::DIV() {
-  return operands.first / operands.second;
+  double res = 0;
+  bool firstOpIsSet = false;
+  for (auto const &op : operands) {
+    if (!firstOpIsSet) {
+      res = op;
+      firstOpIsSet = true;
+    } else {
+      if (op != 0) {
+        res /= op;
+      } else {
+        throw std::overflow_error("Attempt to divide by zero.");
+      }
+    }
+  }
+  return res;
 }
 
 std::ostream& Instruction::outstream(std::ostream &out) {
@@ -86,7 +118,10 @@ std::ostream& Instruction::outstream(std::ostream &out) {
 
 std::string Instruction::toString() {
   std::stringstream ss;
-  ss << code << " " << operands.first << " " << operands.second;
+  ss << code << " ";
+  for (auto const &op : operands) {
+    ss << op << " ";
+  }
   return ss.str();
 }
 

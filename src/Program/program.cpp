@@ -14,7 +14,6 @@ Program::Program(vec2d<string> &content) : nextInstruction(0) {
     if (inst.isValid()) {
       instructions.push_back(inst);
     } else {
-      // TODO treat instruction definition error
       spdlog::error("Invalid instruction: " + inst.toString());
       throw std::runtime_error("Invalid instruction.");
     }
