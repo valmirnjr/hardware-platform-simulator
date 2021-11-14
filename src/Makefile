@@ -6,6 +6,7 @@ LOGLIB = spdlog
 # Directory paths
 SRCDIR != pwd
 PROJDIR = $(SRCDIR)/..
+EXECDIR = $(PROJDIR)/bin
 export OBJDIR = $(PROJDIR)/obj
 LIBDIR = $(PROJDIR)/lib
 SUBDIRS = FileImporter Components Common Program Register Instruction #$(wildcard */.)
@@ -20,7 +21,7 @@ $(OBJDIR)/$(TARGET).o: $(TARGET).cpp
 	$(CC) $(INCLUDE_PATHS) -c -o $@ $<
 
 $(EXEC):
-	$(CC) -o $(EXEC) $(OBJDIR)/*.o -L$(LOGLIBPATH) -l$(LOGLIB)
+	$(CC) -o $(EXECDIR)/$(EXEC) $(OBJDIR)/*.o -L$(LOGLIBPATH) -l$(LOGLIB)
 
 .PHONY: $(SUBDIRS) clean
 $(SUBDIRS):
@@ -33,4 +34,4 @@ clean_target:
 	rm -f $(OBJDIR)/$(TARGET).o $(EXEC)
 
 clean_exec:
-	rm -f $(EXEC)
+	rm -f $(EXECDIR)/$(EXEC)
