@@ -40,6 +40,10 @@ bool Program::hasExecutedAll() {
   return nextInstruction >= instructions.size();
 }
 
+void Program::restart() {
+  nextInstruction = 0;
+}
+
 std::ostream& Program::outstream(std::ostream &out) {
   out << constants::PROGRAM << ": {" << std::endl;
   for (auto &inst : instructions) {

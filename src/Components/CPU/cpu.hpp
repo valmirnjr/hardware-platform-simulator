@@ -28,6 +28,7 @@ namespace HPS {
     DataValue read();
     std::shared_ptr<Component> makeFromFileContent(dict&);
     void setProgram(const Program&);
+    bool isLastCoreActive();
     std::string toString();
   };
 

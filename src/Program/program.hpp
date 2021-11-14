@@ -15,6 +15,7 @@ namespace HPS {
     Program(vec2d<std::string>&);
     Instruction compute();
     bool hasExecutedAll();
+    void restart();
     std::ostream& outstream(std::ostream &out);
   };
 

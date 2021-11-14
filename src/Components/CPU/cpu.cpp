@@ -25,6 +25,14 @@ void CPU::simulate() {
   
   Instruction inst;
   for (int i = 0; i < frequency; i++) {
+    if (prog.hasExecutedAll()) {
+      if (isLastCoreActive()) {
+        break;
+      } else {
+        activeCore++;
+        prog.restart();
+      }
+    }
     inst = prog.compute();
     spdlog::debug("[" + this->getLabel() + "] Executing " + inst.toString());
 
@@ -83,6 +91,10 @@ shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
 
 void CPU::setProgram(const Program &p) {
   prog = p;
+}
+
+bool CPU::isLastCoreActive() {
+  return activeCore == numCores - 1;
 }
 
 std::string CPU::toString() {
