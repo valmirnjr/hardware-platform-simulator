@@ -103,6 +103,6 @@ void HPS::rtrim(std::string &s) {
 
 // trim from both ends (in place)
 void HPS::trim(std::string &s) {
-    ltrim(s);
-    rtrim(s);
+  ltrim(s);
+  rtrim(s);
 }

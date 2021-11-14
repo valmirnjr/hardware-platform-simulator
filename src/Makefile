@@ -28,10 +28,10 @@ $(SUBDIRS):
 	$(MAKE) -C $@
 
 clean:
-	rm -f $(OBJDIR)/*.o $(EXEC)
+	rm -f $(OBJDIR)/*.o $(EXECDIR)/$(EXEC)
 
 clean_target:
-	rm -f $(OBJDIR)/$(TARGET).o $(EXEC)
+	rm -f $(OBJDIR)/$(TARGET).o $(EXECDIR)/$(EXEC)
 
 clean_exec:
 	rm -f $(EXECDIR)/$(EXEC)
