@@ -50,8 +50,6 @@ namespace HPS {
     const std::unordered_set<std::string> INSTRUCTION_NAMES = {
       NOP, ADD, SUB, MUL, DIV
     };
-    
-    enum FileStyle {DICT, LINE};
   }
 
   typedef std::map<std::string, std::string> dict;

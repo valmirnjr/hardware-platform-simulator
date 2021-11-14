@@ -95,6 +95,7 @@ void HPS::parseArgs(int argc, char* argv[]) {
       }
     }
   }
+  verboseLevel = verboseLevel > 4 ? 4 : verboseLevel;
 
   // Get number of steps. The syntax in the command line is hps.exe -v --steps N,
   // where N is an integer representing the number of desired steps.
