@@ -83,7 +83,6 @@ shared_ptr<Component> CPU::makeFromFileContent(dict &d) {
 
 void CPU::setProgram(const Program &p) {
   prog = p;
-  // std::cout << "Setting program: " << prog;
 }
 
 std::string CPU::toString() {
