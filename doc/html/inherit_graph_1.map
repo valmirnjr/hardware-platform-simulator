@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$class_h_p_s_1_1_component.html" title=" " alt="" coords="5,107,136,133"/>
+<area shape="rect" id="node2" href="$class_h_p_s_1_1_i_bindable_component.html" title=" " alt="" coords="186,107,378,133"/>
+<area shape="rect" id="node6" href="$class_h_p_s_1_1_i_readable_component.html" title=" " alt="" coords="184,56,380,83"/>
+<area shape="rect" id="node8" href="$class_h_p_s_1_1_platform.html" title="Component that contains other Components. Uses the composite architecture." alt="" coords="226,157,338,184"/>
+<area shape="rect" id="node3" href="$class_h_p_s_1_1_bus.html" title=" " alt="" coords="443,56,523,83"/>
+<area shape="rect" id="node4" href="$class_h_p_s_1_1_display.html" title=" " alt="" coords="431,157,536,184"/>
+<area shape="rect" id="node5" href="$class_h_p_s_1_1_memory.html" title=" " alt="" coords="428,107,539,133"/>
+<area shape="rect" id="node7" href="$class_h_p_s_1_1_c_p_u.html" title=" " alt="" coords="442,5,525,32"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="HPS::IBindableComponent" name="HPS::IBindableComponent">
+<area shape="rect" id="node1" title=" " alt="" coords="67,80,259,107"/>
+<area shape="rect" id="node3" href="$class_h_p_s_1_1_bus.html" title=" " alt="" coords="5,155,85,181"/>
+<area shape="rect" id="node4" href="$class_h_p_s_1_1_display.html" title=" " alt="" coords="110,155,215,181"/>
+<area shape="rect" id="node5" href="$class_h_p_s_1_1_memory.html" title=" " alt="" coords="239,155,350,181"/>
+<area shape="rect" id="node2" href="$class_h_p_s_1_1_component.html" title=" " alt="" coords="97,5,228,32"/>
+</map>
