@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   spdlog::info("Number of simulation steps = " + std::to_string(HPS::numSimulationSteps));
   
   Platform mainPlatform(
-    "/home/valmir/Documentos/Phelma/S9/OOP/Project/hardware-platform-simulator/test/data/",
+    "../bin/",
     "testdata/platform.txt"
   );
   mainPlatform.load();
