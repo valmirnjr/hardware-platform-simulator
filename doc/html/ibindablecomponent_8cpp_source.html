@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Hardware Platform Simulator: Member List</title>
+<title>Hardware Platform Simulator: Components/IBindableComponent/ibindablecomponent.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,24 +61,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>HPS</b></li><li class="navelem"><a class="el" href="class_h_p_s_1_1_program.html">Program</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_08f45fe6822aeb4ce2bc268e3b1361be.html">Components</a></li><li class="navelem"><a class="el" href="dir_45be6a9e2d7ddce4f9559daa5c252356.html">IBindableComponent</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">HPS::Program Member List</div>  </div>
+<div class="title">ibindablecomponent.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html#a8124c92c159ed52550f1152ecbdc2543">compute</a>()</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html#a9712beb6d269f5aaee5248922237045a">hasExecutedAll</a>()</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>outstream</b>(std::ostream &amp;out) (defined in <a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a>)</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Program</b>() (defined in <a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a>)</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Program</b>(vec2d&lt; std::string &gt; &amp;) (defined in <a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a>)</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>restart</b>() (defined in <a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a>)</td><td class="entry"><a class="el" href="class_h_p_s_1_1_program.html">HPS::Program</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;ibindablecomponent.hpp&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">using</span> <a class="code" href="class_h_p_s_1_1_i_bindable_component.html">HPS::IBindableComponent</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keywordtype">void</span> IBindableComponent::bind(std::shared_ptr&lt;IReadableComponent&gt; src) {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;  source = src;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">const</span> std::string&amp; IBindableComponent::getSourceName() {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keywordflow">return</span> sourceName;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;std::ostream&amp; IBindableComponent::outstream(std::ostream &amp;out) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  out &lt;&lt; this-&gt;toString() &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">return</span> out;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_h_p_s_1_1_i_bindable_component_html"><div class="ttname"><a href="class_h_p_s_1_1_i_bindable_component.html">HPS::IBindableComponent</a></div><div class="ttdef"><b>Definition:</b> <a href="ibindablecomponent_8hpp_source.html#l00012">ibindablecomponent.hpp:12</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

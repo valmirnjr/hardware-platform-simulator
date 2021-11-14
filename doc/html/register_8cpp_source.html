@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Hardware Platform Simulator: Components/component.hpp Source File</title>
+<title>Hardware Platform Simulator: Register/register.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,34 +61,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08f45fe6822aeb4ce2bc268e3b1361be.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_416bf3cb37201e2be64fa6e54ace0cc5.html">Register</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">component.hpp</div>  </div>
+<div class="title">register.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef COMPONENT_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define COMPONENT_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../Common/common.hpp&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;register.hpp&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">using</span> <a class="code" href="class_h_p_s_1_1_register.html">HPS::Register</a>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;Register::Register() {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;}</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>HPS {</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_h_p_s_1_1_component.html">    9</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_h_p_s_1_1_component.html">Component</a> {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">virtual</span> std::string getType() = 0;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> simulate() = 0;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;Component&gt; makeFromFileContent(dict&amp;) = 0;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">virtual</span> std::string toString() = 0;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  };</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">bool</span> Register::isEmpty() {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keywordflow">return</span> content.empty();</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">double</span> Register::read() {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keywordtype">double</span> val = content.front();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  content.pop();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordflow">return</span> val;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> Register::write(<span class="keywordtype">double</span> val) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  spdlog::debug(<span class="stringliteral">&quot;[Register] Writing &quot;</span> + std::to_string(val));</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  content.push(val);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  spdlog::debug(<span class="stringliteral">&quot;[Register] Content size = &quot;</span> + std::to_string(content.size()));</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_h_p_s_1_1_component_html"><div class="ttname"><a href="class_h_p_s_1_1_component.html">HPS::Component</a></div><div class="ttdef"><b>Definition:</b> <a href="component_8hpp_source.html#l00009">component.hpp:9</a></div></div>
+<div class="ttc" id="aclass_h_p_s_1_1_register_html"><div class="ttname"><a href="class_h_p_s_1_1_register.html">HPS::Register</a></div><div class="ttdef"><b>Definition:</b> <a href="register_8hpp_source.html#l00010">register.hpp:10</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

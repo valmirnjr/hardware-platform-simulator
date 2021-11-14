@@ -86,18 +86,19 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_h_p_s_1_1_program.html">Program</a>(vec2d&lt;std::string&gt;&amp;);</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_h_p_s_1_1_instruction.html">Instruction</a> <a class="code" href="class_h_p_s_1_1_program.html#a8124c92c159ed52550f1152ecbdc2543">compute</a>();</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_h_p_s_1_1_program.html#a9712beb6d269f5aaee5248922237045a">hasExecutedAll</a>();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    std::ostream&amp; outstream(std::ostream &amp;out);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  };</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  std::ostream &amp; operator&lt;&lt;(std::ostream&amp;, <a class="code" href="class_h_p_s_1_1_program.html">Program</a>&amp;);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> restart();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    std::ostream&amp; outstream(std::ostream &amp;out);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  };</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  std::ostream &amp; operator&lt;&lt;(std::ostream&amp;, <a class="code" href="class_h_p_s_1_1_program.html">Program</a>&amp;);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_h_p_s_1_1_program_html_a8124c92c159ed52550f1152ecbdc2543"><div class="ttname"><a href="class_h_p_s_1_1_program.html#a8124c92c159ed52550f1152ecbdc2543">HPS::Program::compute</a></div><div class="ttdeci">Instruction compute()</div><div class="ttdoc">Returns the next instruction to be executed and increments the next instruction counter.</div><div class="ttdef"><b>Definition:</b> program.cpp:29</div></div>
-<div class="ttc" id="aclass_h_p_s_1_1_program_html"><div class="ttname"><a href="class_h_p_s_1_1_program.html">HPS::Program</a></div><div class="ttdef"><b>Definition:</b> program.hpp:9</div></div>
-<div class="ttc" id="aclass_h_p_s_1_1_program_html_a9712beb6d269f5aaee5248922237045a"><div class="ttname"><a href="class_h_p_s_1_1_program.html#a9712beb6d269f5aaee5248922237045a">HPS::Program::hasExecutedAll</a></div><div class="ttdeci">bool hasExecutedAll()</div><div class="ttdoc">Returns true if all program instructions have been executed.</div><div class="ttdef"><b>Definition:</b> program.cpp:39</div></div>
-<div class="ttc" id="aclass_h_p_s_1_1_instruction_html"><div class="ttname"><a href="class_h_p_s_1_1_instruction.html">HPS::Instruction</a></div><div class="ttdef"><b>Definition:</b> instruction.hpp:12</div></div>
+<div class="ttc" id="aclass_h_p_s_1_1_program_html_a8124c92c159ed52550f1152ecbdc2543"><div class="ttname"><a href="class_h_p_s_1_1_program.html#a8124c92c159ed52550f1152ecbdc2543">HPS::Program::compute</a></div><div class="ttdeci">Instruction compute()</div><div class="ttdoc">Returns the next instruction to be executed and increments the next instruction counter.</div><div class="ttdef"><b>Definition:</b> <a href="program_8cpp_source.html#l00029">program.cpp:29</a></div></div>
+<div class="ttc" id="aclass_h_p_s_1_1_program_html"><div class="ttname"><a href="class_h_p_s_1_1_program.html">HPS::Program</a></div><div class="ttdef"><b>Definition:</b> <a href="program_8hpp_source.html#l00009">program.hpp:9</a></div></div>
+<div class="ttc" id="aclass_h_p_s_1_1_program_html_a9712beb6d269f5aaee5248922237045a"><div class="ttname"><a href="class_h_p_s_1_1_program.html#a9712beb6d269f5aaee5248922237045a">HPS::Program::hasExecutedAll</a></div><div class="ttdeci">bool hasExecutedAll()</div><div class="ttdoc">Returns true if all program instructions have been executed.</div><div class="ttdef"><b>Definition:</b> <a href="program_8cpp_source.html#l00039">program.cpp:39</a></div></div>
+<div class="ttc" id="aclass_h_p_s_1_1_instruction_html"><div class="ttname"><a href="class_h_p_s_1_1_instruction.html">HPS::Instruction</a></div><div class="ttdef"><b>Definition:</b> <a href="instruction_8hpp_source.html#l00012">instruction.hpp:12</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
