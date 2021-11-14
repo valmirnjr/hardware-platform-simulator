@@ -1,0 +1,4 @@
+<map id="HPS::Platform" name="HPS::Platform">
+<area shape="rect" id="node1" title="Component that contains other Components. Uses the composite architecture." alt="" coords="15,80,127,107"/>
+<area shape="rect" id="node2" href="$class_h_p_s_1_1_component.html" title=" " alt="" coords="5,5,136,32"/>
+</map>

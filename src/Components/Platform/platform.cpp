@@ -19,17 +19,22 @@ const string Platform::type = HPS::constants::PLATFORM;
 
 Platform::Platform() {}
 
+/**
+ * @brief Creates a platform from a textfile.
+ * @param dir the directory path to the platform text file.
+ * @param filename the platform base filename.
+ */
 Platform::Platform(std::string dir, std::string filename) : dir(dir), filename(filename) {
   dict content = importer.importAsDict(dir + filename);
   string compType = getContentType(content, dir);
 
   if (compType != constants::PLATFORM) {
-    std::cout << "Error: the file '" << filename << "' doesn't contain a platform description." << std::endl;
-    return;
+    string err_string = "The file " + filename + " does not contain a platform description.";
+    spdlog::error(err_string);
+    throw std::runtime_error(err_string);
   }
 
   compFilenames = getFilenamesFromContent(content);
-  HPS::print(compFilenames);
 }
 
 Platform::Platform(dict &fc) {
@@ -40,13 +45,21 @@ std::string Platform::getType() {
   return constants::PLATFORM;
 }
 
+/**
+ * @brief Simulates each component inside the platform.
+ */
 void Platform::simulate() {
+  spdlog::trace("The platform simulation has started.");
   for (auto &c : components) {
     c->simulate();
   }
 }
 
+/**
+ * @brief Loads all the components described in the platform file.
+ */
 void Platform::load() {
+  spdlog::trace("Loading components in the platform...");
   for (auto const &filename : compFilenames) {
     dict content = importer.importAsDict(dir + filename);
     
@@ -57,7 +70,7 @@ void Platform::load() {
       throw std::runtime_error("Error: unknown compType \"" + compType + "\"\n");
     }
 
-    std::cout << "Loading " << compType << std::endl;
+    spdlog::info("Loading " + compType);
 
     // Create new component of base class type
     shared_ptr<Component> newComp = factoryMap[compType]->makeFromFileContent(content);
@@ -151,6 +164,12 @@ shared_ptr<IReadableComponent> Platform::findSourceWithLabel(const string &targe
     }
   }
   return nullptr;
+}
+
+std::string Platform::toString() {
+  std::stringstream ss;
+  ss << constants::PLATFORM << ": " << label << std::endl;
+  return ss.str();
 }
 
 map<string, shared_ptr<Component>> Platform::factoryMap = initMap();

@@ -8,10 +8,11 @@ using HPS::Component;
 
 Display::Display() {}
 
-Display::Display(const double &refreshRate, const string &src) : refreshRate(refreshRate) {
-  sourceName = src;
+Display::Display(const double &refreshRate, const string &src)
+  : refreshRate(refreshRate), waitingTime(0) {
+  this->sourceName = src;
 
-  std::cout << *this;
+  spdlog::info(this->toString());
 }
 
 std::string Display::getType() {
@@ -19,20 +20,29 @@ std::string Display::getType() {
 }
 
 void Display::simulate() {
-  if (!source) return;
+  spdlog::trace("Display simulation has started.");
+  if (!source) return; // TODO throw error
   
-  static int waitingTime = 0;
-  string buffer = "";
+  spdlog::debug("[Display] Waiting time = " + std::to_string(waitingTime));
+
   if (waitingTime <= 0) {
+    string buffer = "";
     DataValue data = source->read();
+    spdlog::debug("Data read: " + data.toString());
     while (data.valid) {
-      buffer += std::to_string(data.value);
+      buffer += std::to_string(data.value) + " ";
       data = source->read();
     }
+
+    if (buffer.size() > 0) {
+      std::cout << buffer << std::endl;
+      spdlog::debug("[Display] Output = " + buffer);
+    }
+
     waitingTime = refreshRate;
   }
+
   waitingTime--;
-  std::cout << buffer;
 }
 
 shared_ptr<Component> Display::makeFromFileContent(dict &d) {
@@ -47,7 +57,7 @@ shared_ptr<Component> Display::makeFromFileContent(dict &d) {
     throw std::invalid_argument(errorMsg);
   }
 
-  std::cout << "Creating Display" << std::endl;
+  spdlog::debug("Creating Display...");
 
   double refreshRate = std::stod(d[constants::REFRESH]);
   string sourceName = d[constants::SOURCE];
@@ -55,12 +65,13 @@ shared_ptr<Component> Display::makeFromFileContent(dict &d) {
   return shared_ptr<Component>(new Display(refreshRate, sourceName));
 }
 
-std::ostream& Display::outstream(std::ostream &out) {
-  out << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
-  out << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
-  out << "\t" << constants::REFRESH << ": " << refreshRate << std::endl;
-  out << "}" << std::endl;
-  return out;
+std::string Display::toString() {
+  std::stringstream ss;
+  ss << constants::TYPE << ": " << this->getType() << " = {" << std::endl;
+  ss << "\t" << constants::SOURCE << ": " << sourceName << std::endl;
+  ss << "\t" << constants::REFRESH << ": " << refreshRate << std::endl;
+  ss << "}" << std::endl;
+  return ss.str();
 }
 
 std::ostream & HPS::operator<<(std::ostream &os, Display &d) {

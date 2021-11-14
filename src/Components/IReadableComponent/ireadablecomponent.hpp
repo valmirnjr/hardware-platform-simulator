@@ -12,7 +12,8 @@ namespace HPS {
   public:
     std::string getLabel();
     virtual DataValue read() = 0;
-    virtual ~IReadableComponent() = 0; // To make class abstract
+    std::ostream& outstream(std::ostream &out);
+    virtual std::string toString() = 0;
   };
 }
 

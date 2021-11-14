@@ -10,13 +10,15 @@
 // Used in memory.cpp
 #include <exception>
 #include <iostream>
+#include <sstream>
 
 namespace HPS {
   typedef CircularBuffer<double> MemContent;
 
   class Memory : public IReadableComponent, IBindableComponent {
     std::unique_ptr<MemContent> content;
-    double accessTime;
+    int accessTime;
+    int waitingTime;
     int size;
     
   public:
@@ -26,7 +28,8 @@ namespace HPS {
     void simulate();
     DataValue read();
     std::shared_ptr<Component> makeFromFileContent(dict&);
-    std::ostream& outstream(std::ostream &out);
+    std::string toString();
+    using IReadableComponent::outstream;
   };
 
   bool isValueValid(double);

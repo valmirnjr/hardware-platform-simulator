@@ -1,0 +1,10 @@
+<map id="HPS::Component" name="HPS::Component">
+<area shape="rect" id="node1" title=" " alt="" coords="257,5,387,32"/>
+<area shape="rect" id="node2" href="$class_h_p_s_1_1_i_bindable_component.html" title=" " alt="" coords="226,80,418,107"/>
+<area shape="rect" id="node6" href="$class_h_p_s_1_1_i_readable_component.html" title=" " alt="" coords="5,80,201,107"/>
+<area shape="rect" id="node8" href="$class_h_p_s_1_1_platform.html" title="Component that contains other Components. Uses the composite architecture." alt="" coords="442,80,554,107"/>
+<area shape="rect" id="node3" href="$class_h_p_s_1_1_bus.html" title=" " alt="" coords="113,155,193,181"/>
+<area shape="rect" id="node4" href="$class_h_p_s_1_1_display.html" title=" " alt="" coords="352,155,457,181"/>
+<area shape="rect" id="node5" href="$class_h_p_s_1_1_memory.html" title=" " alt="" coords="217,155,328,181"/>
+<area shape="rect" id="node7" href="$class_h_p_s_1_1_c_p_u.html" title=" " alt="" coords="6,155,89,181"/>
+</map>

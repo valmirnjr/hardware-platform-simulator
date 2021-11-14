@@ -8,10 +8,12 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 namespace HPS {
   class Display : public IBindableComponent {
-    double refreshRate;
+    int refreshRate;
+    int waitingTime;
   
   public:
     Display();
@@ -19,7 +21,7 @@ namespace HPS {
     std::string getType();
     void simulate();
     std::shared_ptr<Component> makeFromFileContent(dict&);
-    std::ostream& outstream(std::ostream &out);
+    std::string toString();
   };
 
   std::ostream & operator<<(std::ostream&, Display&);

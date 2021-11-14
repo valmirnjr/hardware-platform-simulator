@@ -9,6 +9,7 @@
 
 // Used by common.cpp
 #include <exception>
+#include <spdlog/spdlog.h>
 
 namespace HPS {
   namespace constants {
@@ -49,8 +50,6 @@ namespace HPS {
     const std::unordered_set<std::string> INSTRUCTION_NAMES = {
       NOP, ADD, SUB, MUL, DIV
     };
-    
-    enum FileStyle {DICT, LINE};
   }
 
   typedef std::map<std::string, std::string> dict;
@@ -60,6 +59,8 @@ namespace HPS {
   typedef struct DataValue {
     bool valid;
     double value;
+
+    std::string toString();
   } DataValue;
 
   void print(const std::vector<std::string>&);
@@ -69,6 +70,16 @@ namespace HPS {
 
   // Validation functions
   std::vector<std::string> getDictMissingKeys(const dict&, const std::vector<std::string>&);
+
+  // Verbose level global variable
+  extern int verboseLevel;
+  void initLogger();
+
+  // Number of simulation steps global variable
+  extern int numSimulationSteps;
+
+  // Command line arguments parser
+  void parseArgs(int, char**);
 }
 
 

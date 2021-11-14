@@ -11,6 +11,7 @@ namespace HPS {
     virtual std::string getType() = 0;
     virtual void simulate() = 0;
     virtual std::shared_ptr<Component> makeFromFileContent(dict&) = 0;
+    virtual std::string toString() = 0;
   };
 }
 

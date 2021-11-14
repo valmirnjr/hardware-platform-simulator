@@ -5,20 +5,24 @@
 #include <vector>
 #include <map>
 
+// Used by instruction.cpp
+#include <sstream>
+
 namespace HPS {
   class Instruction {
     std::string code;
-    std::pair<double, double> operands;
+    std::vector<double> operands;
   
   public:
     Instruction();
-    Instruction(const std::string, double op1=0.0, double op2=0.0);
+    Instruction(const std::string);
     Instruction(std::vector<std::string>&);
     double execute();
     bool isValid();
     bool isCodeValid();
     bool areOpsValid();
     std::ostream& outstream(std::ostream &out);
+    std::string toString();
 
     // Instructions
     double NOP();

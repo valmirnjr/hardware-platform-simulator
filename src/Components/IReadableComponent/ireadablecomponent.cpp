@@ -6,4 +6,7 @@ std::string IReadableComponent::getLabel() {
   return label;
 }
 
-IReadableComponent::~IReadableComponent() { }
+std::ostream& IReadableComponent::outstream(std::ostream &out) {
+  out << this->toString() << std::endl;
+  return out;
+}

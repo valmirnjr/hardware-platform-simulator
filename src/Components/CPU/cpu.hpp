@@ -2,9 +2,15 @@
 #define CPU_HPP
 
 #include <memory>
+#include <string>
 #include "../IReadableComponent/ireadablecomponent.hpp"
 #include "../../Program/program.hpp"
 #include "../../Register/register.hpp"
+
+// Used by cpu.cpp
+#include <sstream>
+#include <iostream>
+#include <exception>
 
 namespace HPS {
   class CPU : public IReadableComponent {
@@ -22,7 +28,7 @@ namespace HPS {
     DataValue read();
     std::shared_ptr<Component> makeFromFileContent(dict&);
     void setProgram(const Program&);
-    std::ostream& outstream(std::ostream &out);
+    std::string toString();
   };
 
   std::ostream & operator<<(std::ostream&, CPU&);
