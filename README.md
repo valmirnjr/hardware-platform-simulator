@@ -1,6 +1,9 @@
 # hardware-platform-simulator
 A simplified simulator of hardware components. The simulator loads textual definitions of hardware components, builds a platform with the loaded components and simulates their behavior.
 
+## How to run
+Open the src folder in a terminal and run: ```make clean && make```. This will generate an executable called ```hps.exe``` inside the folder bin. You can then run it using ```$ ./hps.exe --steps N```, where ```N``` is the number os simulation steps. You may control the verbosity by adding the flag ```-v```.
+
 ## Week 1
 ### 04/10/2021 - 11/10/2021
 
