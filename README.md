@@ -59,9 +59,9 @@ Where *compType* is a string and content is a map<string, string> with the prope
 - [x] Load program to the CPU
 - [x] Create Instruction
 - [x] Execute instructions from CPU
-- [ ] Test file importation
-- [ ] Test instructions execution
-- [ ] Document functions
+- [x] Test file importation
+- [x] Test instructions execution
+- [x] Document functions
 
 ### Instruction execute method
 
@@ -76,8 +76,8 @@ Where *compType* is a string and content is a map<string, string> with the prope
 - [x] Display simulate method
 - [x] Add readable and bindable behaviour (done by using interfaces)
 - [x] Bind components
-- [ ] Test memory
-- [ ] Test read methods
+- [x] Test memory
+- [x] Test read methods
 
 ### Circular Buffer
 
